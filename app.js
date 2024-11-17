@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(routes);
 
 app.get("/", (req, res) => {
-  res.send("Hello World");
+  res.send("Hello World1");
 });
 
 const PORT = config.app.port || 3000;
