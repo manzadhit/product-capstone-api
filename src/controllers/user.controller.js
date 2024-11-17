@@ -1,4 +1,4 @@
-const { createUser } = require("../models/user.model");
+const { createUser, getAllData } = require("../models/user.model");
 const bcrypt = require("bcrypt");
 const httpStatus = require("http-status");
 
@@ -24,6 +24,25 @@ const createUserController = async (req, res) => {
   });
 };
 
+const getAllUsersController = async (req, res) => {
+  try {
+    const users = await getAllData("users");
+
+    return res.status(httpStatus.OK).send({
+      status: httpStatus.OK,
+      message: "Fetch All Users Success",
+      data: users,
+    });
+  } catch (error) {
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).send({
+      status: httpStatus.INTERNAL_SERVER_ERROR,
+      message: "Failed to fetch users",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   createUserController,
+  getAllUsersController,
 };

@@ -7,5 +7,6 @@ router.post(
   "/register",
   userController.createUserController
 );
+router.get("/", userController.getAllUsersController);
 
 module.exports = router;
