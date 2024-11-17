@@ -2,8 +2,18 @@ require("dotenv").config();
 
 const express = require("express");
 const config = require("./src/utils/config");
+const routes = require("./src/routes/index");
 
 const app = express();
+
+// parse json request body
+app.use(express.json());
+
+// parse urlencoded request body
+app.use(express.urlencoded({ extended: true }));
+
+// API routes
+app.use(routes);
 
 app.get("/", (req, res) => {
   res.send("Hello World");
