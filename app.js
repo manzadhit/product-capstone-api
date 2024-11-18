@@ -12,10 +12,7 @@ const upload = multer();
 const ENV = process.env.NODE_ENV || "development";
 
 // Konfigurasi port berdasarkan environment
-const PORT =
-  ENV === "production"
-    ? process.env.PORT || 8080 // Production
-    : config.app.port || 3000; // Development
+const PORT = config.app.port;
 
 // Konfigurasi host
 const HOST = ENV === "production" ? "0.0.0.0" : "localhost";
@@ -32,6 +29,12 @@ app.get("/", (req, res) => {
   res.send("Hello World1");
 });
 
+// Logging untuk debugging
+console.log(`
+  Environment: ${ENV}
+  Port: ${PORT}
+  Host: ${HOST}
+`);
 
 // Start server
 app.listen(PORT, HOST, () => {
