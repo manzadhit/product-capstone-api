@@ -10,7 +10,7 @@ const createUserController = async (req, res) => {
   //     message: "Email is already in use",
   //   });
   // }
-
+  
   const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
   await createUser("users", {
