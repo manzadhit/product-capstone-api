@@ -1,9 +1,11 @@
 const httpStatus = require("http-status");
+const bcrypt = require("bcrypt");
 const db = require("../config/firestore");
 const ApiError = require("../utils/ApiError");
 
 const createUser = async (data) => {
   const docRef = db.collection("users").doc();
+  data.password = bcrypt.hashSync(data.password, 8);
   await docRef.set(data);
   return { id: docRef.id, ...data };
 };
@@ -35,6 +37,20 @@ const updateUser = async (userId, data) => {
   if (!user.exists) {
     throw new ApiError(httpStatus.NOT_FOUND, "User not found");
   }
+
+  const { email, password } = data;
+
+  if (email && email !== user.email) {
+    const existingUser = await findUserByEmail(email);
+    if (existingUser) {
+      throw new ApiError(httpStatus.CONFLICT, "Email is already in use");
+    }
+  }
+
+  if (password) {
+    data.password = bcrypt.hashSync(data.password, 8);
+  }
+
   await docRef.update(data);
 };
 

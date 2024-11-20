@@ -6,8 +6,8 @@ const httpStatus = require("http-status");
 const helmet = require("helmet");
 const config = require("./src/utils/config");
 const routes = require("./src/routes/index");
-const { errorHandler } = require("./src/middlewares/error");
-const ApiError = require("./src/utils/ApiError")
+const errorHandler = require("./src/middlewares/errorHandler");
+const ApiError = require("./src/utils/ApiError");
 
 const app = express();
 
@@ -28,11 +28,11 @@ app.use(routes);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {
-  next(new ApiError(httpStatus.NOT_FOUND, 'Not found'));
+  next(new ApiError(httpStatus.NOT_FOUND, "Not found"));
 });
 
-// internal server error handling
-app.use(errorHandler)
+// error handling
+app.use(errorHandler);
 
 const PORT = config.app.port || 3000;
 app.listen(PORT, config.app.host, () => {
