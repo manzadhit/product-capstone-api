@@ -50,6 +50,7 @@ git clone https://github.com/manzadhit/Fancy-Todo-API-Prisma.git
   - [Get User By ID -> User](#get-user-by-id)
   - [Update User -> User](#update-user)
   - [Delete User -> User & Admin](#delete-user)
+  - [Calulate BMI -> User](#calculate-bmi)
 
 ### Auth
 
@@ -109,7 +110,13 @@ POST /auth/login
       "password": "$2b$08$x.QTlIX2YMQIKYNtREFyB.Rsn4WCwSZ.5V5E.1x4HoSxf0fR5Hu46",
       "role": "user",
       "createdAt": "2024-11-21T06:12:23.222Z",
-      "updatedAt": "2024-11-21T06:12:23.222Z"
+      "updatedAt": "2024-11-21T06:12:23.222Z",
+      "bmi": {
+        "gender": "Male",
+        "age": 20,
+        "height": 185,
+        "weight": 65
+      }
     },
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InloOThGVFBOV1dqOG00eGdNT25aIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MzIxOTc4MjB9.MGiRK5hzyZ8J97zfo7i-gMYYbVuIw7nzv6t0egAzFt0"
   }
@@ -173,7 +180,13 @@ GET /users
       "email": "nyoman6@gmail.com",
       "password": "$2b$08$qZ0t8cCfhkM7HQkjqNzwmOFSWnWi2/dwbRZPjMYn80QK31JV.uVYG",
       "createdAt": "2024-11-21T02:27:02.063Z",
-      "updatedAt": "2024-11-21T02:27:02.063Z"
+      "updatedAt": "2024-11-21T02:27:02.063Z",
+      "bmi": {
+        "gender": "Male",
+        "age": 20,
+        "height": 185,
+        "weight": 65
+      }
     },
     {
       "id": "5Z0i6jz8De06zs3B01WG",
@@ -181,7 +194,13 @@ GET /users
       "email": "testing1@gmail.com",
       "password": "$2b$10$HqtIEz2IV6Ir1K3uJdilAu3pVBQqGoMt3R0Kc0a3IcI3impgbsc.K",
       "createdAt": "2024-11-21T02:27:02.063Z",
-      "updatedAt": "2024-11-21T02:27:02.063Z"
+      "updatedAt": "2024-11-21T02:27:02.063Z",
+      "bmi": {
+        "gender": "Male",
+        "age": 20,
+        "height": 185,
+        "weight": 65
+      }
     }
   ]
 }
@@ -204,12 +223,19 @@ GET /users/:userId
   "status": 200,
   "message": "Fetch User Success",
   "data": {
-    "id": "CdF6VTUg97a3mey8Qr1p",
-    "username": "update",
-    "password": "$2b$08$989nZcy8LDI5TSR20ODHSeMVwqfCrymgeF2Zdf9mcPDngoySaC5ZS",
-    "email": "update18@gmail.com",
-    "createdAt": "2024-11-21T02:27:02.063Z",
-    "updatedAt": "2024-11-21T02:27:02.063Z"
+    "id": "yh98FTPNWWj8m4xgMOnZ",
+    "username": "nyoman",
+    "email": "nyoman9@gmail.com",
+    "password": "$2b$08$x.QTlIX2YMQIKYNtREFyB.Rsn4WCwSZ.5V5E.1x4HoSxf0fR5Hu46",
+    "role": "user",
+    "createdAt": "2024-11-21T06:12:23.222Z",
+    "updatedAt": "2024-11-21T06:12:23.222Z",
+    "bmi": {
+      "gender": "Male",
+      "age": 20,
+      "height": 185,
+      "weight": 65
+    }
   }
 }
 ```
@@ -259,5 +285,35 @@ DELETE /users/:userId
 {
   "status": 200,
   "message": "Delete User Success"
+}
+```
+
+#### Calculate BMI
+
+Memperbarui data pengguna dengan data bmi berdasarkan ID pengguna.
+
+**URL**
+
+```bash
+PUT /users/:userId/bmi
+```
+
+**Body Request**
+
+```json
+{
+  "gender": "Male",
+  "age": 20,
+  "height": 185,
+  "weight": 65
+}
+```
+
+**Response Success**
+
+```json
+{
+  "status": 200,
+  "message": "Adding data success"
 }
 ```
