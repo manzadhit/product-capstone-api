@@ -89,6 +89,19 @@ const findUserByEmail = async (email) => {
   return user;
 };
 
+const calculateBMI = async (userId, data) => {
+  const docRef = db.collection("users").doc(userId);
+  const user = await docRef.get();
+
+  if (!user.exists) {
+    throw new ApiError(httpStatus.NOT_FOUND, "User not found");
+  }
+
+  await docRef.update({
+    bmi: data
+  })
+}
+
 module.exports = {
   createUser,
   getUsers,
@@ -96,4 +109,5 @@ module.exports = {
   updateUser,
   deleteUser,
   findUserByEmail,
+  calculateBMI,
 };

@@ -15,4 +15,11 @@ router
   .put(authenticateJwt, checkRole("user"), userController.updateUser)
   .delete(authenticateJwt, userController.deleteUser);
 
+router.put(
+  "/:userId/bmi",
+  authenticateJwt,
+  checkRole("user"),
+  userController.calculateBMI
+);
+
 module.exports = router;

@@ -31,7 +31,7 @@ const getAllUsers = catchAsync(async (req, res) => {
   });
 });
 
-const getUserById = catchAsync(async (req, res) => {  
+const getUserById = catchAsync(async (req, res) => {
   const { userId } = req.params;
   const user = await userService.getUserById(userId);
   return res.status(httpStatus.OK).send({
@@ -60,10 +60,21 @@ const deleteUser = catchAsync(async (req, res) => {
   });
 });
 
+const calculateBMI = catchAsync(async (req, res) => {
+  const { userId } = req.params;
+  await userService.calculateBMI(userId, req.body);
+
+  return res.status(httpStatus.OK).send({
+    status: httpStatus.OK,
+    message: "Adding data success",
+  });
+});
+
 module.exports = {
   createUser,
   getAllUsers,
   getUserById,
   updateUser,
   deleteUser,
+  calculateBMI,
 };
