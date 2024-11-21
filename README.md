@@ -45,11 +45,11 @@ git clone https://github.com/manzadhit/Fancy-Todo-API-Prisma.git
 
 - [User](#user)
 
-  - [Create User](#create-user)
-  - [Get All Users](#get-all-users)
-  - [Get User By ID](#get-user-by-id)
-  - [Update User](#update-user)
-  - [Delete User](#delete-user)
+  - [Create User -> Admin](#create-user)
+  - [Get All Users -> Admin](#get-all-users)
+  - [Get User By ID -> User](#get-user-by-id)
+  - [Update User -> User](#update-user)
+  - [Delete User -> User & Admin](#delete-user)
 
 ### Auth
 
@@ -102,12 +102,16 @@ POST /auth/login
   "status": 200,
   "message": "Login Successfully",
   "data": {
-    "id": "F0IlvW7LKOENPIbHuiac",
-    "username": "nyoman",
-    "email": "nyoman@gmail.com",
-    "password": "$2b$10$9qVoqVDUzUzc7KRMGJYuge8zfuYp5ck5heGvFhwPxcb.qtt/TK/Mq",
-    "createdAt": "2024-11-21T02:27:02.063Z",
-    "updatedAt": "2024-11-21T02:27:02.063Z"
+    "user": {
+      "id": "yh98FTPNWWj8m4xgMOnZ",
+      "username": "nyoman",
+      "email": "nyoman9@gmail.com",
+      "password": "$2b$08$x.QTlIX2YMQIKYNtREFyB.Rsn4WCwSZ.5V5E.1x4HoSxf0fR5Hu46",
+      "role": "user",
+      "createdAt": "2024-11-21T06:12:23.222Z",
+      "updatedAt": "2024-11-21T06:12:23.222Z"
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InloOThGVFBOV1dqOG00eGdNT25aIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MzIxOTc4MjB9.MGiRK5hzyZ8J97zfo7i-gMYYbVuIw7nzv6t0egAzFt0"
   }
 }
 ```
