@@ -31,7 +31,7 @@ const getAllUsers = catchAsync(async (req, res) => {
   });
 });
 
-const getUserById = catchAsync(async (req, res) => {
+const getUserById = catchAsync(async (req, res) => {  
   const { userId } = req.params;
   const user = await userService.getUserById(userId);
   return res.status(httpStatus.OK).send({

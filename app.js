@@ -4,10 +4,15 @@ const express = require("express");
 const multer = require("multer");
 const httpStatus = require("http-status");
 const helmet = require("helmet");
+const passport = require("passport");
 const config = require("./src/utils/config");
 const routes = require("./src/routes/index");
-const errorHandler = require("./src/middlewares/errorHandler");
+const {
+  errorHandler,
+  errorConverter,
+} = require("./src/middlewares/errorHandler");
 const ApiError = require("./src/utils/ApiError");
+const jwtStrategy = require("./src/config/passport");
 
 const app = express();
 
@@ -23,6 +28,9 @@ app.use(express.urlencoded({ extended: true }));
 const upload = multer();
 app.use(upload.none());
 
+passport.use("jwt", jwtStrategy);
+app.use(passport.initialize());
+
 // API routes
 app.use(routes);
 
@@ -32,6 +40,7 @@ app.use((req, res, next) => {
 });
 
 // error handling
+app.use(errorConverter);
 app.use(errorHandler);
 
 const PORT = config.app.port || 3000;

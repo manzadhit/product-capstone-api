@@ -20,7 +20,10 @@
     "express": "^4.21.1",
     "helmet": "^8.0.0",
     "http-status": "^1.4.0",
-    "multer": "^1.4.5-lts.1"
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "passport": "^0.7.0",
+    "passport-jwt": "^4.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.14.0",
