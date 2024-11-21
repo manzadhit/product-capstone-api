@@ -6,14 +6,13 @@ const checkRole = require("../middlewares/roleMiddleware");
 
 router
   .route("/")
-  .post(userController.createUser)
-  .get(userController.getAllUsers);
+  .post(authenticateJwt, checkRole("admin"), userController.createUser)
+  .get(authenticateJwt, checkRole("admin"), userController.getAllUsers);
 
 router
   .route("/:userId")
   .get(authenticateJwt, checkRole("user"), userController.getUserById)
-  .put(authenticateJwt, checkRole("admin"), userController.updateUser)
-  .delete(authenticateJwt, checkRole("admin"), userController.deleteUser);
-
+  .put(authenticateJwt, checkRole("user"), userController.updateUser)
+  .delete(authenticateJwt, userController.deleteUser);
 
 module.exports = router;
