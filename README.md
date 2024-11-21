@@ -78,7 +78,7 @@ POST /auth/register
 ```json
 {
   "status": 201,
-  "message": "Registrasi successfully",
+  "message": "Register successfully",
   "data": {
     "userId": "CdF6VTUg97a3mey8Qr1p"
   }
@@ -105,7 +105,9 @@ POST /auth/login
     "id": "F0IlvW7LKOENPIbHuiac",
     "username": "nyoman",
     "email": "nyoman@gmail.com",
-    "password": "$2b$10$9qVoqVDUzUzc7KRMGJYuge8zfuYp5ck5heGvFhwPxcb.qtt/TK/Mq"
+    "password": "$2b$10$9qVoqVDUzUzc7KRMGJYuge8zfuYp5ck5heGvFhwPxcb.qtt/TK/Mq",
+    "createdAt": "2024-11-21T02:27:02.063Z",
+    "updatedAt": "2024-11-21T02:27:02.063Z"
   }
 }
 ```
@@ -165,13 +167,17 @@ GET /users
       "id": "5TIcepsZy349ok1s9EoY",
       "username": "nyoman",
       "email": "nyoman6@gmail.com",
-      "password": "$2b$08$qZ0t8cCfhkM7HQkjqNzwmOFSWnWi2/dwbRZPjMYn80QK31JV.uVYG"
+      "password": "$2b$08$qZ0t8cCfhkM7HQkjqNzwmOFSWnWi2/dwbRZPjMYn80QK31JV.uVYG",
+      "createdAt": "2024-11-21T02:27:02.063Z",
+      "updatedAt": "2024-11-21T02:27:02.063Z"
     },
     {
       "id": "5Z0i6jz8De06zs3B01WG",
       "username": "testting1",
       "email": "testing1@gmail.com",
-      "password": "$2b$10$HqtIEz2IV6Ir1K3uJdilAu3pVBQqGoMt3R0Kc0a3IcI3impgbsc.K"
+      "password": "$2b$10$HqtIEz2IV6Ir1K3uJdilAu3pVBQqGoMt3R0Kc0a3IcI3impgbsc.K",
+      "createdAt": "2024-11-21T02:27:02.063Z",
+      "updatedAt": "2024-11-21T02:27:02.063Z"
     }
   ]
 }
@@ -197,7 +203,9 @@ GET /users/:userId
     "id": "CdF6VTUg97a3mey8Qr1p",
     "username": "update",
     "password": "$2b$08$989nZcy8LDI5TSR20ODHSeMVwqfCrymgeF2Zdf9mcPDngoySaC5ZS",
-    "email": "update18@gmail.com"
+    "email": "update18@gmail.com",
+    "createdAt": "2024-11-21T02:27:02.063Z",
+    "updatedAt": "2024-11-21T02:27:02.063Z"
   }
 }
 ```

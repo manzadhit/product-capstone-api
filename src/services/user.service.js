@@ -6,8 +6,12 @@ const ApiError = require("../utils/ApiError");
 const createUser = async (data) => {
   const docRef = db.collection("users").doc();
   data.password = bcrypt.hashSync(data.password, 8);
-  await docRef.set(data);
-  return { id: docRef.id, ...data };
+
+  const createdAt = new Date().toISOString();
+  const updatedAt = createdAt; 
+
+  await docRef.set({ ...data, createdAt, updatedAt});
+  return { id: docRef.id, ...data, createdAt, updatedAt };
 };
 
 const getUsers = async () => {
@@ -51,7 +55,9 @@ const updateUser = async (userId, data) => {
     data.password = bcrypt.hashSync(data.password, 8);
   }
 
-  await docRef.update(data);
+  const updatedAt = new Date().toISOString();
+
+  await docRef.update({...data, updatedAt});
 };
 
 const deleteUser = async (userId) => {
