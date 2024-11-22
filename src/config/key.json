@@ -1,13 +1,8 @@
 {
-  "type": "service_account",
-  "project_id": "nutricheck-441702",
-  "private_key_id": "a418f425f01d79af775be971afb62c86f503338a",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC7xstaFvGpeVIX\nSReGrBhkf9dHdf9CC9owUWWWjHSBdL8woj51+i5KsbmPUp2UUhGw3vkmrSrBGyFm\nMKHxpv3NmBlq9QjJfZS/Jd5Zkgfd6+XBc9LcDZKsXyq69ytqua6D4uLpKXRc7CLf\n2MEvB6uwiXXcQ6KKP9/iZjETmF6hlxh/imMe8evbYnbiKyVRUm8/9kmQP6KB/duP\nnhu8jnfRPm8YLGzxrG7nVwJjbZPyTmYwgZVsFjH7uD2c009+0gp65zHPPSRSPGra\nrhgeowV4rWNETQQU0DS2xbu9arRDEwj8oIJgmLecHR0gH8LeLnVc9cD8V3sfbI1E\nflSlXdcdAgMBAAECggEALzVc9aLUEdv+//yvzfthTI75dC1dxeCN89za8f0Q42UT\nFiqMEoQZ9Ex3Tumh1WLGsNV2BTu/BnqILJVoeYUWxQQKy+Gb2nBYn6/pFVLJ6IjA\npCC27/z3lZ99cjDm+PeCwQSfMKhr6Vqyr91iQC0pBIKin4RfjmtdoaE4kGkbzXrs\nLfDfmOQ9uBxQD2+8zNZvY364cNtNzaxNB/h9IQyBQTj8ROFRrS+JI71y154Pao6S\n1tSiqhRCvImfDJaPXoUYcFndg08WOi6xQx3s6IXQuKYgW65Koh47Dp+/Id2XeeIz\nDpso/LoduuNkxO1lEFgYsOi+g0sddjZ0N9TjtK9GrwKBgQC75CKtszxp4BUQJ7kx\ntsuYjKhQt5X0xUXRziGmsj+VVEUjSt50CM3EwU37H+lpecxY/StOAFF3Y6bpEpC9\ncBlYOAEOCBPjdmDhfZ7L2+pg88KNwfwg9kBQuKgYlqBwWZgWG56Fc/TRaMcSmh9K\n/DOCdKAfDnXXHxgJrVPKaJuG/wKBgQD/2AXip0YQm8Feb28sq78CnB8K7jeMDX7f\nj2LJvb0EGXwgvhOhAeWkwrg3uzOS0Tnd8gTJOU32+5gNeiFyGpWxBOiE4h3lIVto\nxO5rrYVjntvy/njYHNTvgBCa9i2g7yITkItp7YwsqXrKxtoVZV5pA5x33Ig0Porv\nNnnbcxXd4wKBgCIaMy0hxgpVcJ1BCHz8d5GVngsgdyg5EgYVisgNvDqnU/Em6p9W\n5bobd8LntN6/C5bvRIfgyOiJfsb45qpriT4Y1CAu2SVE3CqxOTw5Cx5Tv/Eoz1FQ\nQLYl/eSQmkgqCs+gbbI9LKdBhDhdHubmRZcdAd8BKeREsYE4I2guemQTAoGAWayj\nK3WMFmgxl+MhKZwtQEHuk4s5xwo37S455xJtPRGds3BMOwQKNPzXSxl/kzdovAWH\nbex7ClXXTun+7RqqWzioM2N6LQTLIGbeVrmkZm2ZFIvjWYSJkkTmDRq6lY0b+ZWR\neBh+KG1jD84xRIyaUd6lKlIPH5jIY95JSgUFphcCgYEAhg5CXm7fb4qaFT0P2LhR\nBPOOYQQuOmNbPBn9jZ+3QJvYzAm+VxZN1XDHgoJ+7H1eSkkvwoWf5YpHjaCveVL/\nC/COYhVysrx6uzxgfRKNGR142mroM2CCdfQqoANcMBV4TFIUR8m8krF4nqo2L276\n1gIX7KVTnBvilmYw4CWYYms=\n-----END PRIVATE KEY-----\n",
-  "client_email": "200676161700-compute@developer.gserviceaccount.com",
-  "client_id": "105981217221687171241",
-  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
-  "token_uri": "https://oauth2.googleapis.com/token",
-  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/200676161700-compute%40developer.gserviceaccount.com",
+  "account": "",
+  "client_id": "764086051850-6qr4p6gpi6hn506pt8ejuq83di341hur.apps.googleusercontent.com",
+  "client_secret": "d-FL95Q19q7MQmFpd7hHD0Ty",
+  "refresh_token": "1//0gujHZqjYZq0ACgYIARAAGBASNwF-L9IrJZ_epOaOXk83Oa5Q7ZkCfcEG0-qj9QBnwvw_dEXfCjQBCgPXynFuOIK-ZRyahrUffyo",
+  "type": "authorized_user",
   "universe_domain": "googleapis.com"
 }

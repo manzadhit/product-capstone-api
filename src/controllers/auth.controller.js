@@ -4,7 +4,7 @@ const httpStatus = require("http-status");
 const jwt = require("jsonwebtoken");
 const catchAsync = require("../utils/catchAsync");
 const { userService, authService } = require("../services");
-const config = require("../utils/config");
+const config = require("../config/config");
 
 const SECRET_KEY = config.jwt.secret;
 

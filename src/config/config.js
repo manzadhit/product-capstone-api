@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const config = {
   app: {
     host: process.env.HOST,
@@ -5,6 +7,9 @@ const config = {
   },
   jwt: {
     secret: process.env.SECRET,
+  },
+  bucket: {
+    bucketName: process.env.BUCKET,
   },
 };
 

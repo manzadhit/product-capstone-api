@@ -1,11 +1,10 @@
 require("dotenv").config();
 
 const express = require("express");
-const multer = require("multer");
 const httpStatus = require("http-status");
 const helmet = require("helmet");
 const passport = require("passport");
-const config = require("./src/utils/config");
+const config = require("./src/config/config");
 const routes = require("./src/routes/index");
 const {
   errorHandler,
@@ -24,9 +23,6 @@ app.use(express.json());
 
 // parse urlencoded request body
 app.use(express.urlencoded({ extended: true }));
-
-const upload = multer();
-app.use(upload.none());
 
 passport.use("jwt", jwtStrategy);
 app.use(passport.initialize());
