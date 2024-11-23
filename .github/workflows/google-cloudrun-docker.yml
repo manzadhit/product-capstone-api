@@ -44,6 +44,7 @@ jobs:
           image: ${{ env.GAR_LOCATION }}-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.GAR_REPOSITORY_NAME }}/${{ env.SERVICE }}:${{ github.sha }}
           env_vars: |
             SECRET=${{ secrets.JWT_SECRET }}
+            BUCKET=${{ secrets.BUCKET }}
 
       - name: Show Output
         run: echo ${{ steps.deploy.outputs.url }}
