@@ -20,6 +20,7 @@ const createNews = catchAsync(async (req, res) => {
     },
   });
 });
+
 const getAllNews = catchAsync(async (req, res) => {
   const news = await newsService.getAllNews();
   return res.status(httpStatus.OK).send({
@@ -31,7 +32,7 @@ const getAllNews = catchAsync(async (req, res) => {
 
 const getNewsByTitle = catchAsync(async (req, res) => {
   const { title } = req.params;
-  const news = await newsService.getNewsByTitle(title);
+  const news = await newsService.getNewsByTitleRegex(title);
   return res.status(httpStatus.OK).send({
     status: httpStatus.OK,
     message: "Fetch News by Title Success",
@@ -61,6 +62,7 @@ const updateNews = catchAsync(async (req, res) => {
 
 const deleteNews = catchAsync(async (req, res) => {
   const { newsId } = req.params;
+  
   await newsService.deleteNews(newsId);
   return res.status(httpStatus.OK).send({
     status: httpStatus.OK,
@@ -74,6 +76,6 @@ module.exports = {
   getNewsById,
   updateNews,
   deleteNews,
-  createNews
+  createNews,
 };
 
