@@ -20,8 +20,60 @@ const createNews = catchAsync(async (req, res) => {
     },
   });
 });
+const getAllNews = catchAsync(async (req, res) => {
+  const news = await newsService.getAllNews();
+  return res.status(httpStatus.OK).send({
+    status: httpStatus.OK,
+    message: "Fetch All News Success",
+    data: news,
+  });
+});
 
+const getNewsByTitle = catchAsync(async (req, res) => {
+  const { title } = req.params;
+  const news = await newsService.getNewsByTitle(title);
+  return res.status(httpStatus.OK).send({
+    status: httpStatus.OK,
+    message: "Fetch News by Title Success",
+    data: news,
+  });
+});
+
+const getNewsById = catchAsync(async (req, res) => {
+  const { newsId } = req.params;
+  const news = await newsService.getNewsById(newsId);
+  return res.status(httpStatus.OK).send({
+    status: httpStatus.OK,
+    message: "Fetch News by ID Success",
+    data: news,
+  });
+});
+
+const updateNews = catchAsync(async (req, res) => {
+  const { newsId } = req.params;
+  const updatedNews = await newsService.updateNews(newsId, req.body, req.file);
+  return res.status(httpStatus.OK).send({
+    status: httpStatus.OK,
+    message: "Update News Success",
+    data: updatedNews,
+  });
+});
+
+const deleteNews = catchAsync(async (req, res) => {
+  const { newsId } = req.params;
+  await newsService.deleteNews(newsId);
+  return res.status(httpStatus.OK).send({
+    status: httpStatus.OK,
+    message: "Delete News Success",
+  });
+});
 
 module.exports = {
-  createNews,
+  getAllNews,
+  getNewsByTitle,
+  getNewsById,
+  updateNews,
+  deleteNews,
+  createNews
 };
+
