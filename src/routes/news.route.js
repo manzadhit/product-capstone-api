@@ -3,14 +3,15 @@ const router = express.Router();
 const upload = require("../middlewares/multerUpload");
 const { authenticateJwt } = require("../middlewares/authMiddleware");
 const checkRole = require("../middlewares/roleMiddleware");
-const { createNews } = require("../controllers/newsController");
+const newsController = require("../controllers/newsController");
 
-router.post(
-  "/",
-  authenticateJwt,
-  checkRole("admin"),
-  upload.single("image"),
-  createNews
-);
+router
+  .route("/")
+  .post(
+    authenticateJwt,
+    checkRole("admin"),
+    upload.single("image"),
+    newsController.createNews
+  );
 
 module.exports = router;

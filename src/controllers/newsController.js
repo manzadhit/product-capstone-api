@@ -21,10 +21,6 @@ const createNews = catchAsync(async (req, res) => {
   });
 });
 
-module.exports = {
-  createNews,
-};
-
 
 module.exports = {
   createNews,

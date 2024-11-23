@@ -8,8 +8,8 @@ const { userValidation } = require("../validations");
 
 router
   .route("/")
-  .post(authenticateJwt, checkRole("user"), validate(userValidation.createUser), userController.createUser)
-  .get(authenticateJwt, checkRole("user"), userController.getAllUsers);
+  .post(authenticateJwt, checkRole("admin"), validate(userValidation.createUser), userController.createUser)
+  .get(authenticateJwt, checkRole("admin"), userController.getAllUsers);
 
 router
   .route("/:userId")
@@ -24,5 +24,5 @@ router.put(
   validate(userValidation.calculateBMI),
   userController.calculateBMI
 );
-
+  
 module.exports = router;
