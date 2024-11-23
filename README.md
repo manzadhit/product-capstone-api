@@ -52,6 +52,11 @@ git clone https://github.com/manzadhit/Fancy-Todo-API-Prisma.git
   - [Delete User -> User & Admin](#delete-user)
   - [Calulate BMI -> User](#calculate-bmi)
 
+- [News](#news)
+
+  - [Get All News -> User](#get-all-news)
+  - [Searching News -> User](#searching-news)
+
 ### Auth
 
 #### Register
@@ -315,5 +320,79 @@ PUT /users/:userId/bmi
 {
   "status": 200,
   "message": "Adding data success"
+}
+```
+
+### News
+
+#### Get All News
+
+Mendapatkan semua berita
+
+**URL**
+
+```bash
+GET /news
+```
+
+**Response Success**
+
+```json
+{
+  "status": 200,
+  "message": "Fetch All News Success",
+  "data": [
+    {
+      "id": "BRb4ZMWZVZn65QkofRGF",
+      "title": "5 superfoods for iron health",
+      "description": "You’ve definitely heard of superfoods, but you might not know which ones they are. Here’s a list of meals that are so excellent for you, they’re exceptional.",
+      "category": ["healty", "food"],
+      "url": "https://medium.com/@RalucaA/5-superfoods-for-iron-health-c277682c9a2a",
+      "image": "https://storage.googleapis.com/news-nutricheck/news_images/1732381183616_5 superfoods for iron health.jpg",
+      "createdAt": "2024-11-23T16:59:47.405Z",
+      "updatedAt": "2024-11-23T16:59:47.405Z"
+    },
+    {
+      "id": "GmdABlNjcMTDkVThTTuj",
+      "title": "Healthy Eating for Heart Health",
+      "description": "For general health, maintaining a healthy heart is essential. Adopting a healthy diet that is balanced and nutrient-rich is one of the major aspects in promoting heart health.",
+      "category": ["healty", "food"],
+      "url": "https://medium.com/@michaelpaland/healthy-eating-for-heart-health-d721670e4443",
+      "image": "https://storage.googleapis.com/news-nutricheck/news_images/1732381377745_5 superfoods for iron health.jpg",
+      "createdAt": "2024-11-23T17:02:58.859Z",
+      "updatedAt": "2024-11-23T17:02:58.859Z"
+    }
+  ]
+}
+```
+
+#### Searching News
+
+Melakukan pencarian berita
+
+**URL**
+
+```bash
+GET /news/title/:title
+```
+
+**Response Success**
+
+```json
+{
+  "status": 200,
+  "message": "Fetch News by Title Success",
+  "data": [
+    {
+      "id": "GmdABlNjcMTDkVThTTuj",
+      "title": "Healthy Eating for Heart Health",
+      "description": "For general health, maintaining a healthy heart is essential. Adopting a healthy diet that is balanced and nutrient-rich is one of the major aspects in promoting heart health.",
+      "category": ["healty", "food"],
+      "url": "https://medium.com/@michaelpaland/healthy-eating-for-heart-health-d721670e4443",
+      "createdAt": "2024-11-23T17:02:58.859Z",
+      "image": "https://storage.googleapis.com/news-nutricheck/news_images/1732381525612_Healthy Eating for Heart Health.jpg",
+      "updatedAt": "2024-11-23T17:05:25.612Z"
+    }
+  ]
 }
 ```
