@@ -54,8 +54,13 @@ git clone https://github.com/manzadhit/Fancy-Todo-API-Prisma.git
 
 - [News](#news)
 
-  - [Get All News -> User](#get-all-news)
-  - [Searching News -> User](#searching-news)
+  - [Get All News](#get-all-news)
+  - [Searching News](#searching-news)
+  - [Get News By Category](#get-news-by-category)
+
+- [Categories](#categories)
+
+  - [Get All Categories](#get-all-categories)
 
 ### Auth
 
@@ -392,6 +397,82 @@ GET /news/title/:title
       "createdAt": "2024-11-23T17:02:58.859Z",
       "image": "https://storage.googleapis.com/news-nutricheck/news_images/1732381525612_Healthy Eating for Heart Health.jpg",
       "updatedAt": "2024-11-23T17:05:25.612Z"
+    }
+  ]
+}
+```
+
+#### Get News By Category
+
+Melakukan pencarian berita berdasarkan nama category
+
+**URL**
+
+```bash
+GET /news/category/:category
+```
+
+**Response Success**
+
+```json
+{
+  "status": 200,
+  "message": "Fetch News by Category Success",
+  "data": [
+    {
+      "id": "NmuXwld70VTKAIDD7kT7",
+      "title": "Foods That Energize and Enhance Mental Focus",
+      "description": "Ever experienced that feeling of tiredness like you are running out of fuel half through the day? If the afternoons lull gets you scavenging for that sugary junk or downing another cup of coffee, maybe it is time of altering your options.",
+      "categories": ["healthy", "food"],
+      "url": "https://medium.com/@franz_70100/foods-that-energize-and-enhance-mental-focus-783f827524a1",
+      "image": "https://storage.googleapis.com/news-nutricheck/news_images/1732468496194_Foods That Energize.jpg",
+      "createdAt": "2024-11-24T17:14:57.451Z",
+      "updatedAt": "2024-11-24T17:14:57.451Z"
+    },
+    {
+      "id": "tqkVj1BcI8OQuihDbjFz",
+      "title": "Want to Be a Better Cook? Perk Up Your Ears and Listen to the Food",
+      "description": "Here’s a bold claim for a kicker: When it comes to helping you put delicious food on the table, even the best-selling cookbooks miss the mark. And before you ask, yes, Julia Child’s cookbooks are the exception. They always are.",
+      "categories": ["food"],
+      "url": "https://medium.com/tastyble/want-to-be-a-better-cook-perk-up-your-ears-and-listen-to-the-food-0cfc77ddbd65",
+      "image": "https://storage.googleapis.com/news-nutricheck/news_images/1732467497807_Want to Be a Better.jpg",
+      "createdAt": "2024-11-24T16:58:25.022Z",
+      "updatedAt": "2024-11-24T16:58:25.022Z"
+    }
+  ]
+}
+```
+
+### Categories
+
+#### Get All Categories
+
+Menampilkan semua daftar categories
+
+**URL**
+
+```bash
+GET /categories
+```
+
+**Response Success**
+
+```json
+{
+  "status": 200,
+  "message": "Fetch All Categories Success",
+  "data": [
+    {
+      "id": "EtY6adzL7xRWd3RUKFpv",
+      "title": "food",
+      "createdAt": "2024-11-24T16:52:40.591Z",
+      "updatedAt": "2024-11-24T16:52:40.591Z"
+    },
+    {
+      "id": "MYuBKBTKH17BPN9lYFNf",
+      "createdAt": "2024-11-24T17:05:38.425Z",
+      "title": "healthy",
+      "updatedAt": "2024-11-24T17:10:45.265Z"
     }
   ]
 }

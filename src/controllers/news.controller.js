@@ -70,6 +70,16 @@ const deleteNews = catchAsync(async (req, res) => {
   });
 });
 
+const getNewsByCategory = catchAsync(async (req, res) => {
+  const { category } = req.params;
+  const news = await newsService.getNewsByCategory(category);
+  return res.status(httpStatus.OK).send({
+    status: httpStatus.OK,
+    message: "Fetch News by Category Success",
+    data: news,
+  });
+});
+
 module.exports = {
   getAllNews,
   getNewsByTitle,
@@ -77,5 +87,6 @@ module.exports = {
   updateNews,
   deleteNews,
   createNews,
+  getNewsByCategory,
 };
 

@@ -3,7 +3,7 @@ const router = express.Router();
 const upload = require("../middlewares/multerUpload");
 const { authenticateJwt } = require("../middlewares/authMiddleware");
 const checkRole = require("../middlewares/roleMiddleware");
-const newsController = require("../controllers/newsController");
+const newsController = require("../controllers/news.controller");
 
 router
   .route("/")
@@ -14,6 +14,12 @@ router
     newsController.createNews
   )
   .get(authenticateJwt, newsController.getAllNews);
+
+router.get(
+  "/category/:category",
+  authenticateJwt,
+  newsController.getNewsByCategory
+);
 
 router
   .route("/title/:title")

@@ -1,5 +1,3 @@
-// run gcloud auth application-default login
-
 {
   "account": "",
   "client_id": "",
