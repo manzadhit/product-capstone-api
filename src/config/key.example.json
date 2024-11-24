@@ -1,0 +1,10 @@
+// run gcloud auth application-default login
+
+{
+  "account": "",
+  "client_id": "",
+  "client_secret": "",
+  "refresh_token": "",
+  "type": "",
+  "universe_domain": ""
+}
