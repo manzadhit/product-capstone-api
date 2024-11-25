@@ -1,4 +1,5 @@
 require("dotenv").config();
+require("./src/config/passport-config"); // Import konfigurasi Passport Google
 
 const express = require("express");
 const httpStatus = require("http-status");
@@ -15,30 +16,38 @@ const jwtStrategy = require("./src/config/passport");
 
 const app = express();
 
-// set security HTTP headers
+// Middleware
+app.use(passport.initialize());
+
+// Set security HTTP headers
 app.use(helmet());
 
-// parse json request body
+// Parse JSON request body
 app.use(express.json());
 
-// parse urlencoded request body
+// Parse URL-encoded request body
 app.use(express.urlencoded({ extended: true }));
 
+// Gunakan strategi JWT Passport (sudah ada di konfigurasi Anda)
 passport.use("jwt", jwtStrategy);
-app.use(passport.initialize());
 
 // API routes
 app.use(routes);
 
-// send back a 404 error for any unknown api request
+// Tambahkan rute autentikasi Google
+const authRoutes = require("./src/routes/auth.route"); // Import rute autentikasi
+app.use("/auth", authRoutes); // Pasang rute untuk autentikasi di prefix "/auth"
+
+// Send back a 404 error for any unknown API request
 app.use((req, res, next) => {
   next(new ApiError(httpStatus.NOT_FOUND, "Not found"));
 });
 
-// error handling
+// Error handling middleware
 app.use(errorConverter);
 app.use(errorHandler);
 
+// Jalankan server
 const PORT = config.app.port || 3000;
 app.listen(PORT, config.app.host, () => {
   console.log(`App listening on http://${config.app.host}:${config.app.port}`);
