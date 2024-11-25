@@ -125,7 +125,8 @@ POST /auth/login
         "gender": "Male",
         "age": 20,
         "height": 185,
-        "weight": 65
+        "weight": 65,
+        "activity": "mengoding"
       }
     },
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InloOThGVFBOV1dqOG00eGdNT25aIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MzIxOTc4MjB9.MGiRK5hzyZ8J97zfo7i-gMYYbVuIw7nzv6t0egAzFt0"
@@ -195,7 +196,8 @@ GET /users
         "gender": "Male",
         "age": 20,
         "height": 185,
-        "weight": 65
+        "weight": 65,
+        "activity": "mengoding"
       }
     },
     {
@@ -209,7 +211,8 @@ GET /users
         "gender": "Male",
         "age": 20,
         "height": 185,
-        "weight": 65
+        "weight": 65,
+        "activity": "mengoding"
       }
     }
   ]
@@ -244,7 +247,8 @@ GET /users/:userId
       "gender": "Male",
       "age": 20,
       "height": 185,
-      "weight": 65
+      "weight": 65,
+      "activity": "mengoding"
     }
   }
 }
