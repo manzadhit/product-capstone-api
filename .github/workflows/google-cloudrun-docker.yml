@@ -24,7 +24,7 @@ jobs:
 
       - name: Setup key.json
         run: |
-          echo `${{ secrets.KEY_JSON }}` > src/config/key.json
+          echo ${{ secrets.KEY_JSON }} > src/config/key.json
 
       - name: Google Auth
         id: auth
