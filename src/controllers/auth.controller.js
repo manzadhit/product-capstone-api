@@ -19,11 +19,15 @@ const register = catchAsync(async (req, res) => {
 
   const user = await userService.createUser(req.body);
 
+  const payload = { id: user.id, role: user.role };
+  const token = jwt.sign(payload, SECRET_KEY);
+
   return res.status(httpStatus.CREATED).send({
     status: httpStatus.CREATED,
     message: "Register Succesfully",
     data: {
       userId: user.id,
+      token,
     },
   });
 });
