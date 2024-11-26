@@ -2,12 +2,13 @@ const express = require('express');
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 require('../middlewares/passport'); // Pastikan Passport di-load di sini
+const config = require("../config/config");
 
 const router = express.Router();
 
 // Fungsi untuk menghasilkan token JWT
 const generateToken = (user) => {
-  if (!process.env.JWT_SECRET) {
+  if (!config.jwt.secret) {
     throw new Error('JWT_SECRET is not defined in the environment variables.');
   }
 
@@ -16,7 +17,7 @@ const generateToken = (user) => {
       id: user.googleId, // ID pengguna dari Google
       email: user.email,
     },
-    process.env.JWT_SECRET, // Kunci rahasia untuk JWT
+    config.jwt.secret, // Kunci rahasia untuk JWT
     { expiresIn: '1h' } // Token berlaku selama 1 jam
   );
 };
