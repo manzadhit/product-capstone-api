@@ -2,6 +2,7 @@ const passport = require("passport");
 const httpStatus = require("http-status");
 const jwt = require("jsonwebtoken");
 const ApiError = require("../utils/ApiError");
+const config  = require("../config/config");
 
 // Fungsi authenticateJwt yang sudah ada
 const authenticateJwt = (req, res, next) => {
@@ -41,7 +42,7 @@ const verifyJwtToken = (req, res, next) => {
 
   try {
     // Verifikasi token JWT
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, config.env.secret);
 
     req.user = decoded;
 

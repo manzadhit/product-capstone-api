@@ -5,6 +5,7 @@ const validate = require("../middlewares/validation");
 const { authValidation } = require("../validations");
 const passport = require("passport");
 const jwt = require("jsonwebtoken");
+const config = require("../config/config")
 
 // Rute register
 router.post("/register", validate(authValidation.register), authController.register);
@@ -31,7 +32,7 @@ router.get(
             email: req.user.email,
             name: req.user.displayName,
           },
-          process.env.JWT_SECRET,
+          config.jwt.secret,
           { expiresIn: "1h" }
         );
   
