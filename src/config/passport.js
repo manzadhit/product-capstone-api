@@ -27,7 +27,7 @@ const googleVerify = async (accessToken, refreshToken, profile, done) => {
 
   // Jika tidak ditemukan, buat user baru dengan role "user"
   if (!user) {
-    user = await user.createUser({
+    user = await userService.createUser({
       googleId: profile.id,
       username: profile.displayName,
       email: profile.emails[0].value,
