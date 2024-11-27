@@ -7,13 +7,12 @@ const passport = require("passport");
 const session = require("express-session");
 const config = require("./src/config/config");
 const routes = require("./src/routes/index");
-const authRoutes = require("./src/routes/auth"); // Tambahan rute untuk otentikasi Google
 const {
   errorHandler,
   errorConverter,
 } = require("./src/middlewares/errorHandler");
 const ApiError = require("./src/utils/ApiError");
-const jwtStrategy = require("./src/config/passport");
+const { jwtStrategy, googleStrategy } = require("./src/config/passport");
 
 const app = express();
 
@@ -37,15 +36,12 @@ app.use(express.urlencoded({ extended: true }));
 
 // Initialize Passport
 passport.use("jwt", jwtStrategy);
-require("./src/middlewares/passport"); // Konfigurasi Passport untuk Google
+passport.use("google", googleStrategy);
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Gunakan rute utama aplikasi
 app.use(routes);
-
-// Gunakan rute auth untuk Google Login
-app.use("/auth", authRoutes);
 
 // send back a 404 error for any unknown api request
 app.use((req, res, next) => {

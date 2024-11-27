@@ -6,16 +6,16 @@ const ApiError = require("../utils/ApiError");
 const createUser = async (data) => {
   const docRef = db.collection("users").doc();
   data.password = bcrypt.hashSync(data.password, 8);
- 
+
   let role = "user";
   if (data.role && data.role === "admin") {
-    role = data.role
+    role = data.role;
   }
 
   const createdAt = new Date().toISOString();
-  const updatedAt = createdAt; 
+  const updatedAt = createdAt;
 
-  await docRef.set({ ...data, role, createdAt, updatedAt});
+  await docRef.set({ ...data, role, createdAt, updatedAt });
   return { id: docRef.id, ...data, role, createdAt, updatedAt };
 };
 
@@ -62,7 +62,7 @@ const updateUser = async (userId, data) => {
 
   const updatedAt = new Date().toISOString();
 
-  await docRef.update({...data, updatedAt});
+  await docRef.update({ ...data, updatedAt });
 };
 
 const deleteUser = async (userId) => {
@@ -98,9 +98,23 @@ const calculateBMI = async (userId, data) => {
   }
 
   await docRef.update({
-    bmi: data
-  })
-}
+    bmi: data,
+  });
+};
+
+const findUserByGoogleId = async (googleId) => {
+
+  if (!googleId) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Google ID is required to find user");
+  }
+  const userRef = db.collection("users").doc(googleId);
+  const userDoc = await userRef.get();
+
+  if (userDoc.exists) {
+    return userDoc.data();
+  }
+  return null;
+};
 
 module.exports = {
   createUser,
@@ -110,4 +124,5 @@ module.exports = {
   deleteUser,
   findUserByEmail,
   calculateBMI,
+  findUserByGoogleId,
 };

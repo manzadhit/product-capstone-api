@@ -4,8 +4,6 @@ const authController = require("../controllers/auth.controller");
 const validate = require("../middlewares/validation");
 const { authValidation } = require("../validations");
 const passport = require("passport");
-const jwt = require("jsonwebtoken");
-const config = require("../config/config")
 
 // Rute register
 router.post("/register", validate(authValidation.register), authController.register);
@@ -13,37 +11,14 @@ router.post("/register", validate(authValidation.register), authController.regis
 // Rute login
 router.post("/login", validate(authValidation.login), authController.login);
 
-// Rute untuk memulai login dengan Google
 router.get(
-    "/google",
-    passport.authenticate("google", { scope: ["profile", "email"] })
-  );
+  "/google",
+  passport.authenticate("google", { scope: ["profile", "email"] })
+);
 
-// Callback setelah login dengan Google berhasil
 router.get(
-    "/google/callback",
-    passport.authenticate("google", { session: false }),
-    (req, res) => {
-      try {
-        // Generate token JWT untuk user
-        const token = jwt.sign(
-          {
-            id: req.user.googleId,
-            email: req.user.email,
-            name: req.user.displayName,
-          },
-          config.jwt.secret,
-          { expiresIn: "1h" }
-        );
-  
-        // Kirim token JWT sebagai respons
-        res.status(200).json({ token });
-      } catch (error) {
-        // Gunakan objek error untuk memberikan informasi lebih detail
-        res.status(500).json({ error: error.message || "Internal Server Error" });
-      }
-    }
-  );
-  
+  "/google/callback",
+  passport.authenticate("google", { failureRedirect: "/login" }, authController.callbackGoogle)
+);
 
 module.exports = router;

@@ -50,7 +50,33 @@ const login = catchAsync(async (req, res) => {
   });
 });
 
+const callbackGoogle = catchAsync(async (req, res) => {
+  const { user } = req;
+
+  if (user) {
+    return res
+      .status(401)
+      .json({ message: "Authentication failed. No user found." });
+  }
+
+  const payload = { id: user.googleId, role: user.role };
+  const token = jwt.sign(payload, SECRET_KEY);
+
+  res.json({
+    message: "Login successful",
+    user: {
+      googleId: user.googleId,
+      username: user.name,
+      email: user.email,
+      avatar: user.avatar,
+      createdAt: user.createdAt || new Date().toISOString(),
+    },
+    token,
+  });
+});
+
 module.exports = {
   register,
   login,
+  callbackGoogle,
 };

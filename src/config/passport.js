@@ -1,4 +1,5 @@
 require("dotenv").config();
+const { Strategy: GoogleStrategy } = require("passport-google-oauth20");
 const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
 const { userService } = require("../services");
 const config = require("../config/config");
@@ -15,6 +16,32 @@ const jwtVerify = async (payload, done) => {
   return done(null, false);
 };
 
-const jwtStrategy = new JwtStrategy(jwtOptions, jwtVerify);
+const googleOption = {
+  clientID: config.google.clientID,
+  clientSecret: config.google.clientSecret,
+  callbackURL: config.google.callbackURL,
+};
 
-module.exports = jwtStrategy;
+const googleVerify = async (profile, done) => {
+  try {
+    let user = await userService.findUserByGoogleId(profile.id);
+
+    // Jika tidak ditemukan, buat user baru dengan role "user"
+    if (!user) {
+      user = await user.createUser({
+        googleId: profile.id,
+        username: profile.displayName,
+        email: profile.emails[0].value,
+        avatar: profile.photos?.[0]?.value || null,
+      });
+    }
+    return done(null, user);
+  } catch (err) {
+    return done(err, null);
+  }
+};
+
+const jwtStrategy = new JwtStrategy(jwtOptions, jwtVerify);
+const googleStrategy = new GoogleStrategy(googleOption, googleVerify);
+
+module.exports = { jwtStrategy, googleStrategy };
