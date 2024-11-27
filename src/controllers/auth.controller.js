@@ -53,7 +53,8 @@ const login = catchAsync(async (req, res) => {
 const callbackGoogle = catchAsync(async (req, res) => {
   const { user } = req;
 
-  if (user) {
+  if (!user) {
+    // Pastikan logika benar
     return res
       .status(401)
       .json({ message: "Authentication failed. No user found." });
@@ -62,14 +63,14 @@ const callbackGoogle = catchAsync(async (req, res) => {
   const payload = { id: user.googleId, role: user.role };
   const token = jwt.sign(payload, SECRET_KEY);
 
-  res.json({
+  res.status(httpStatus.OK).send({
     message: "Login successful",
     user: {
       googleId: user.googleId,
       username: user.name,
       email: user.email,
       avatar: user.avatar,
-      createdAt: user.createdAt || new Date().toISOString(),
+      createdAt: user.createdAt, 
     },
     token,
   });
