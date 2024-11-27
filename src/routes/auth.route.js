@@ -20,7 +20,8 @@ router.get(
 
 router.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login" }, (req, res) => {
+  passport.authenticate("google", { failureRedirect: "/login" }),
+  (req, res) => {
     try {
       // Generate token JWT untuk user
       const token = jwt.sign(
@@ -38,10 +39,10 @@ router.get(
       // Kirim token JWT sebagai respons
       res.status(200).json({ user, token });
     } catch (error) {
-      // Gunakan objek error untuk memberikan informasi lebih detail
       res.status(500).json({ error: error.message || "Internal Server Error" });
     }
-  })
+  }
 );
+
 
 module.exports = router;
