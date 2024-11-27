@@ -22,7 +22,7 @@ const googleOption = {
   callbackURL: config.google.callbackURL,
 };
 
-const googleVerify = async (profile, done) => {
+const googleVerify = async (accessToken, refreshToken, profile, done) => {
   let user = await userService.findUserByGoogleId(profile.id);
 
   // Jika tidak ditemukan, buat user baru dengan role "user"
