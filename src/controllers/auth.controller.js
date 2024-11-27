@@ -51,27 +51,24 @@ const login = catchAsync(async (req, res) => {
 });
 
 const callbackGoogle = catchAsync(async (req, res) => {
-  const { user } = req;
+  let user = await userService.getUserById(req.user.id);
 
+  // Jika tidak ditemukan, buat user baru dengan role "user"
   if (!user) {
-    // Pastikan logika benar
-    return res
-      .status(401)
-      .json({ message: "Authentication failed. No user found." });
+    user = await userService.createUser({
+      googleId: user.id,
+      username: user.displayName,
+      email: user.emails[0].value,
+      avatar: user.photos?.[0]?.value || null,
+    });
   }
 
-  const payload = { id: user.googleId, role: user.role };
+  const payload = { id: user.id, role: user.role };
   const token = jwt.sign(payload, SECRET_KEY);
 
   res.status(httpStatus.OK).send({
     message: "Login successful",
-    user: {
-      googleId: user.googleId,
-      username: user.name,
-      email: user.email,
-      avatar: user.avatar,
-      createdAt: user.createdAt, 
-    },
+    user,
     token,
   });
 });

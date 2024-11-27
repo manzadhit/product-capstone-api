@@ -6,7 +6,7 @@ const categoryController = require("../controllers/category.controller");
 
 router
   .route("/")
-  .post(authenticateJwt, checkRole("admin") ,categoryController.createCategory)
+  .post(authenticateJwt, checkRole("admin"), categoryController.createCategory)
   .get(authenticateJwt, categoryController.getAllCategories);
 
 router
