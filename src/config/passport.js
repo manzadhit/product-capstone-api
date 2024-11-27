@@ -3,6 +3,7 @@ const { Strategy: GoogleStrategy } = require("passport-google-oauth20");
 const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
 const { userService } = require("../services");
 const config = require("../config/config");
+const passport = require("passport");
 
 const jwtOptions = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -40,5 +41,20 @@ const googleVerify = async (accessToken, refreshToken, profile, done) => {
 
 const jwtStrategy = new JwtStrategy(jwtOptions, jwtVerify);
 const googleStrategy = new GoogleStrategy(googleOption, googleVerify);
+
+// Serialisasi user ke dalam session
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+// Deserialisasi user dari session
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await userService.getUserById(id);
+    done(null, user);
+  } catch (err) {
+    done(err, null);
+  }
+});
 
 module.exports = { jwtStrategy, googleStrategy };
