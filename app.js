@@ -4,6 +4,7 @@ const express = require("express");
 const httpStatus = require("http-status");
 const helmet = require("helmet");
 const passport = require("passport");
+const session = require("express-session");
 const config = require("./src/config/config");
 const routes = require("./src/routes/index");
 const {
@@ -11,9 +12,18 @@ const {
   errorConverter,
 } = require("./src/middlewares/errorHandler");
 const ApiError = require("./src/utils/ApiError");
-const { jwtStrategy } = require("./src/config/passport");
+const { jwtStrategy, googleStrategy } = require("./src/config/passport");
 
 const app = express();
+
+// Middleware session (dibutuhkan untuk Passport)
+app.use(
+  session({
+    secret: "your_secret_key",
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 // set security HTTP headers
 app.use(helmet());
@@ -26,7 +36,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Initialize Passport
 passport.use("jwt", jwtStrategy);
+passport.use("google", googleStrategy);
 app.use(passport.initialize());
+app.use(passport.session());
 
 // Gunakan rute utama aplikasi
 app.use(routes);

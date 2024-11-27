@@ -40,7 +40,7 @@ const login = catchAsync(async (req, res) => {
   const payload = { id: user.id, role: user.role };
   const token = jwt.sign(payload, SECRET_KEY);
 
-  res.status(httpStatus.OK).send({
+  return res.status(httpStatus.OK).send({
     status: httpStatus.OK,
     message: "Login Successfully",
     data: {
@@ -66,7 +66,8 @@ const callbackGoogle = catchAsync(async (req, res) => {
   const payload = { id: user.id, role: user.role };
   const token = jwt.sign(payload, SECRET_KEY);
 
-  res.status(httpStatus.OK).send({
+  return res.status(httpStatus.OK).send({
+    status: httpStatus.OK,
     message: "Login successful",
     user,
     token,
