@@ -12,7 +12,7 @@ const createUser = {
 
 const getUser = {
   params: Joi.object().keys({
-    userId: Joi.string().custom(objectId),
+    userId: Joi.string().required().custom(objectId),
   }),
 };
 
