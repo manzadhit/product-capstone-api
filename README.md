@@ -64,7 +64,8 @@ git clone https://github.com/manzadhit/Fancy-Todo-API-Prisma.git
 
 - [Meals](#meals)
 
-  - [Create Meal](#create meal)
+  <!-- - [Create Meal](#create-meal) -->
+  - [Searching Meals](#searching-meals)
 
 ### Auth
 
@@ -481,6 +482,103 @@ GET /categories
       "createdAt": "2024-11-24T17:05:38.425Z",
       "title": "healthy",
       "updatedAt": "2024-11-24T17:10:45.265Z"
+    }
+  ]
+}
+```
+
+### Meals
+
+<!-- #### Create Meal
+
+Menambahkan Makanan beserta Nutrisinya
+
+**URL**
+
+```bash
+POST /meals
+```
+
+**Body Request**
+
+```json
+{
+  "Calories": 202,
+  "Food Name": "meatball",
+  "Serving Size": "100 g",
+  "Serving Size (grams)": 100,
+  "nutritions": {
+    "Calcium": 46,
+    "Dietary Fiber": 0.5,
+    "Iron": 1.77,
+    "Protein": 12.41,
+    "Total Carbohydrate": 7.58,
+    "Vitamin A": 15,
+    "Vitamin B": 0,
+    "Vitamin C": 0.8
+  }
+}
+```
+
+**Response Success**
+
+```json
+{
+  "status": 200,
+  "message": "Fetch All Categories Success",
+  "data": [
+    {
+      "id": "EtY6adzL7xRWd3RUKFpv",
+      "title": "food",
+      "createdAt": "2024-11-24T16:52:40.591Z",
+      "updatedAt": "2024-11-24T16:52:40.591Z"
+    },
+    {
+      "id": "MYuBKBTKH17BPN9lYFNf",
+      "createdAt": "2024-11-24T17:05:38.425Z",
+      "title": "healthy",
+      "updatedAt": "2024-11-24T17:10:45.265Z"
+    }
+  ]
+}
+``` -->
+
+#### Searching Meals
+
+Melakukan pencarian makanan
+
+**URL**
+
+```bash
+GET /meals/nutrition?food=foodName
+```
+
+**Response Success**
+
+```json
+{
+  "status": 200,
+  "message": "Fetch Meals by Food Name Success",
+  "data": [
+    {
+      "id": "04a88116-a34a-424b-9dd0-8d2553c2530e",
+      "Calories": 202,
+      "Food Name": "meatball",
+      "Serving Size": "100 g",
+      "Serving Size (grams)": 100,
+      "nutritions": {
+        "Calcium": 46,
+        "Dietary Fiber": 0.5,
+        "Iron": 1.77,
+        "Protein": 12.41,
+        "Total Carbohydrate": 7.58,
+        "Vitamin A": 15,
+        "Vitamin B": 0,
+        "Vitamin C": 0.8
+      },
+      "createdAt": "2024-12-03T13:46:10.048Z",
+      "updatedAt": "2024-12-03T13:46:10.048Z",
+      "userId": "20ddEYDvRLEkEfPyC1Fa"
     }
   ]
 }
