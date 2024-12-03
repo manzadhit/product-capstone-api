@@ -1,8 +1,9 @@
 const { mealService } = require("../services");
 const catchAsync = require("../utils/catchAsync");
 const httpStatus = require("http-status");
+const ApiError = require("../utils/ApiError");
 
-const createMeals = catchAsync(async (req, res) => {
+const createMeal = catchAsync(async (req, res) => {
   const userId = req.user.id;
   const meal = await mealService.createMeal(req.body, userId);
   return res.status(httpStatus.CREATED).send({
@@ -55,10 +56,24 @@ const deleteMeal = catchAsync(async (req, res) => {
   });
 });
 
+const getMealsByFoodName = catchAsync(async (req, res) => {
+  const { food } = req.query; 
+  if (!food) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Food Name is required");
+  }
+  const meals = await mealService.getMealsByFoodName(food);
+  return res.status(httpStatus.OK).send({
+    status: httpStatus.OK,
+    message: "Fetch Meals by Food Name Success",
+    data: meals,
+  });
+});
+
 module.exports = {
-  createMeals,
+  createMeal,
   getAllMeals,
   getMealById,
   updateMeal,
   deleteMeal,
+  getMealsByFoodName,
 };

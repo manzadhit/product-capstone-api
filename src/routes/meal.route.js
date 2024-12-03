@@ -6,8 +6,12 @@ const mealController = require("../controllers/meal.controller");
 
 router
   .route("/")
-  .post(authenticateJwt, mealController.createMeals)
+  .post(authenticateJwt, mealController.createMeal)
   .get(authenticateJwt, checkRole("admin"), mealController.getAllMeals);
+
+router
+  .route("/nutrition")
+  .get(authenticateJwt, mealController.getMealsByFoodName);
 
 router
   .route("/:mealId")

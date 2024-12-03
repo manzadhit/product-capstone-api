@@ -62,6 +62,10 @@ git clone https://github.com/manzadhit/Fancy-Todo-API-Prisma.git
 
   - [Get All Categories](#get-all-categories)
 
+- [Meals](#meals)
+
+  - [Create Meal](#create meal)
+
 ### Auth
 
 #### Register

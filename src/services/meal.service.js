@@ -90,6 +90,34 @@ const deleteMeal = async (mealId, userId) => {
   return { message: "Meal deleted successfully" };
 };
 
+const getMealsByFoodName = async (namePattern) => {
+  // Ambil semua data berita dari Firestore
+  const snapshot = await db.collection("meals").get();
+  const meals = [];
+
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    const foodName = data["Food Name"];
+
+    // Cek jika title mengandung pattern regex
+    const regex = new RegExp(namePattern, "i"); // 'i' untuk case-insensitive
+    if (regex.test(foodName)) {
+      meals.push({ id: doc.id, ...data });
+    }
+  });
+
+  // Jika tidak ada berita yang cocok
+  if (meals.length === 0) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      "No Meals Found with the given Title"
+    );
+  }
+
+  return meals;
+};
+
+
 
 module.exports = {
   createMeal,
@@ -97,4 +125,5 @@ module.exports = {
   getMealById,
   updateMeal,
   deleteMeal,
+  getMealsByFoodName,
 };
