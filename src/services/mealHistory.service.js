@@ -6,25 +6,11 @@ const mealService = require("./meal.service");
 const getMealType = require("../utils/getMealType");
 
 
-const createOrUpdateMealHistory = async (userId, mealIds) => {
-  if (!mealIds || mealIds.length === 0) {
-    throw new ApiError(httpStatus.BAD_REQUEST, "Meal IDs are required.");
-  }
+const roundToTwoDecimalPlaces = (value) => {
+  return parseFloat(value.toFixed(2));
+};
 
-  const meal_type = getMealType();
-  const date = new Date().toISOString().split("T")[0];
-
-  const historyCollection = db.collection("meals_histories");
-
-  // Cek apakah riwayat makanan untuk tipe makanan pada hari tersebut sudah ada
-  const existingHistoryQuery = await historyCollection
-    .where("userId", "==", userId)
-    .where("meal_type", "==", meal_type)
-    .where("date", "==", date)
-    .limit(1)
-    .get();
-
-  let totalCalories = 0;
+const calculateTotalNutritionAndLabel = (meals_details) => {
   const totalNutrition = {
     Calcium: 0,
     "Dietary Fiber": 0,
@@ -36,56 +22,94 @@ const createOrUpdateMealHistory = async (userId, mealIds) => {
     Carbohydrate: 0,
   };
 
-  const details = [];
-  for (const mealId of mealIds) {
-    const mealData = await mealService.getMealById(mealId);
-    const { Calories, nutritions } = mealData;
+  let totalCalories = 0;
 
-    // Tambahkan ke daftar makanan baru
-    details.push(mealData);
-
-    // Tambahkan total nutrisi dari makanan baru
-    totalCalories += Calories;
-    for (const [key, value] of Object.entries(nutritions)) {
+  // Hitung total kalori dan nutrisi
+  meals_details.forEach((meal) => {
+    totalCalories += meal.Calories;
+    for (const [key, value] of Object.entries(meal.nutritions)) {
       if (totalNutrition[key] !== undefined) {
         totalNutrition[key] += value;
       }
     }
+  });
+
+  // Pembulatan nilai total
+  totalCalories = roundToTwoDecimalPlaces(totalCalories);
+  for (const key in totalNutrition) {
+    totalNutrition[key] = roundToTwoDecimalPlaces(totalNutrition[key]);
   }
 
+  // Tentukan label berdasarkan nutrisi dominan (totalNutrition)
+  const label = Object.keys(totalNutrition).reduce(
+    (maxKey, key) =>
+      totalNutrition[key] > (totalNutrition[maxKey] || 0) ? key : maxKey,
+    null
+  );
+
+  return { totalCalories, totalNutrition, label };
+};
+
+
+const upsertMealHistory = async (
+  historyCollection,
+  existingHistoryDoc,
+  userId,
+  meal_type,
+  date,
+  meals_details
+) => {
   const createdAt = new Date().toISOString();
   const updatedAt = createdAt;
 
-  if (!existingHistoryQuery.empty) {
-    // Jika sudah ada riwayat makanan, lakukan update
-    const existingHistoryDoc = existingHistoryQuery.docs[0];
+  const { totalCalories, totalNutrition } =
+    calculateTotalNutritionAndLabel(meals_details);
+
+  if (existingHistoryDoc) {
+    // Update existing history
     const existingData = existingHistoryDoc.data();
 
-    // Update total kalori dan nutrisi
-    const updatedTotalCalories = existingData.total_calories + totalCalories;
+    const updatedTotalCalories = roundToTwoDecimalPlaces(
+      existingData.total_calories + totalCalories
+    );
+
     const updatedTotalNutrition = { ...existingData.total_nutrition };
     for (const [key, value] of Object.entries(totalNutrition)) {
       if (updatedTotalNutrition[key] !== undefined) {
-        updatedTotalNutrition[key] += value;
+        updatedTotalNutrition[key] = roundToTwoDecimalPlaces(
+          updatedTotalNutrition[key] + value
+        );
       }
     }
 
-    // Tambahkan makanan baru ke detail yang sudah ada
-    const updatedDetails = [...existingData.details, ...details];
+    // Hitung ulang label berdasarkan updatedTotalNutrition
+    const label = Object.keys(updatedTotalNutrition).reduce(
+      (maxKey, key) =>
+        updatedTotalNutrition[key] > (updatedTotalNutrition[maxKey] || 0)
+          ? key
+          : maxKey,
+      null
+    );
 
-    // Update dokumen di Firestore
+    const updatedDetails = [...existingData.meals_details, ...meals_details];
+    const count = updatedDetails.length;
+
     await historyCollection.doc(existingHistoryDoc.id).update({
       total_calories: updatedTotalCalories,
       total_nutrition: updatedTotalNutrition,
-      details: updatedDetails,
+      meals_details: updatedDetails,
       updatedAt,
+      count,
+      label,
     });
 
     return {
       id: existingHistoryDoc.id,
       total_calories: updatedTotalCalories,
       total_nutrition: updatedTotalNutrition,
-      details: updatedDetails,
+      meals_details: updatedDetails,
+      count,
+      label,
       userId,
       meal_type,
       date,
@@ -93,33 +117,82 @@ const createOrUpdateMealHistory = async (userId, mealIds) => {
       updatedAt,
     };
   } else {
-    // Jika tidak ada riwayat, buat dokumen baru
+    // Create new history
+    const label = Object.keys(totalNutrition).reduce(
+      (maxKey, key) =>
+        totalNutrition[key] > (totalNutrition[maxKey] || 0) ? key : maxKey,
+      null
+    );
+
     const historyId = uuidv4();
+    const count = meals_details.length;
+
     const mealHistory = {
       total_calories: totalCalories,
       total_nutrition: totalNutrition,
+      meals_details,
       userId,
       meal_type,
       date,
-      details,
       createdAt,
       updatedAt,
+      count,
+      label,
     };
 
-    const docRef = historyCollection.doc(historyId);
-    await docRef.set(mealHistory);
+    await historyCollection.doc(historyId).set(mealHistory);
 
     return { id: historyId, ...mealHistory };
   }
 };
 
-const addMealManual = async (userId, meal) => {
-  const meal_type = getMealType(); // Menentukan tipe makan berdasarkan waktu
+
+const createOrUpdateMealHistory = async (userId, mealIds) => {
+  if (!mealIds || mealIds.length === 0) {
+    throw new ApiError(httpStatus.BAD_REQUEST, "Meal IDs are required.");
+  }
+
+  const meal_type = getMealType();
   const date = new Date().toISOString().split("T")[0];
 
   const historyCollection = db.collection("meals_histories");
+  const existingHistoryQuery = await historyCollection
+    .where("userId", "==", userId)
+    .where("meal_type", "==", meal_type)
+    .where("date", "==", date)
+    .limit(1)
+    .get();
 
-  // Cek apakah ada riwayat makanan dengan tipe makan dan tanggal ini
+  const meals_details = [];
+  for (const mealId of mealIds) {
+    const mealData = await mealService.getMealById(mealId);
+    mealData.Calories = roundToTwoDecimalPlaces(mealData.Calories);
+    for (const key in mealData.nutritions) {
+      mealData.nutritions[key] = roundToTwoDecimalPlaces(
+        mealData.nutritions[key]
+      );
+    }
+    meals_details.push(mealData);
+  }
+
+  const existingHistoryDoc = !existingHistoryQuery.empty
+    ? existingHistoryQuery.docs[0]
+    : null;
+  return upsertMealHistory(
+    historyCollection,
+    existingHistoryDoc,
+    userId,
+    meal_type,
+    date,
+    meals_details
+  );
+};
+
+const addMealManual = async (userId, meal) => {
+  const meal_type = getMealType();
+  const date = new Date().toISOString().split("T")[0];
+
+  const historyCollection = db.collection("meals_histories");
   const existingHistoryQuery = await historyCollection
     .where("userId", "==", userId)
     .where("meal_type", "==", meal_type)
@@ -130,7 +203,11 @@ const addMealManual = async (userId, meal) => {
   const createdAt = new Date().toISOString();
   const updatedAt = createdAt;
 
-  // Tambahkan properti tambahan ke makanan
+  meal.Calories = roundToTwoDecimalPlaces(meal.Calories);
+  for (const key in meal.nutritions) {
+    meal.nutritions[key] = roundToTwoDecimalPlaces(meal.nutritions[key]);
+  }
+
   const mealWithMetadata = {
     ...meal,
     id: uuidv4(),
@@ -139,62 +216,19 @@ const addMealManual = async (userId, meal) => {
     updatedAt,
   };
 
-  const { Calories, nutritions } = meal;
+  const meals_details = [mealWithMetadata];
+  const existingHistoryDoc = !existingHistoryQuery.empty
+    ? existingHistoryQuery.docs[0]
+    : null;
 
-  if (!existingHistoryQuery.empty) {
-    // Jika riwayat makanan sudah ada, update data
-    const existingHistoryDoc = existingHistoryQuery.docs[0];
-    const existingData = existingHistoryDoc.data();
-
-    // Update total kalori dan nutrisi
-    const updatedTotalCalories = existingData.total_calories + Calories;
-    const updatedTotalNutrition = { ...existingData.total_nutrition };
-    for (const [key, value] of Object.entries(nutritions)) {
-      if (updatedTotalNutrition[key] !== undefined) {
-        updatedTotalNutrition[key] += value;
-      }
-    }
-
-    // Tambahkan makanan baru ke `details`
-    const updatedDetails = [...existingData.details, mealWithMetadata];
-
-    // Perbarui dokumen
-    await historyCollection.doc(existingHistoryDoc.id).update({
-      total_calories: updatedTotalCalories,
-      total_nutrition: updatedTotalNutrition,
-      details: updatedDetails,
-      updatedAt,
-    });
-
-    return {
-      id: existingHistoryDoc.id,
-      total_calories: updatedTotalCalories,
-      total_nutrition: updatedTotalNutrition,
-      details: updatedDetails,
-      meal_type,
-      date,
-      createdAt: existingData.createdAt,
-      updatedAt,
-    };
-  } else {
-    // Jika tidak ada riwayat makanan, buat dokumen baru
-    const mealHistory = {
-      total_calories: Calories,
-      total_nutrition: nutritions,
-      userId,
-      meal_type,
-      date,
-      details: [mealWithMetadata],
-      createdAt,
-      updatedAt,
-    };
-
-    const historyId = uuidv4();
-    const docRef = historyCollection.doc(historyId);
-    await docRef.set(mealHistory);
-
-    return { id: historyId, ...mealHistory };
-  }
+  return upsertMealHistory(
+    historyCollection,
+    existingHistoryDoc,
+    userId,
+    meal_type,
+    date,
+    meals_details
+  );
 };
 
 
@@ -221,8 +255,47 @@ const getMealHistoriesByMealType = async (userId, mealType) => {
   return histories;
 };
 
+const getMealHistoriesByDate = async (userId, date) => {
+  const historyCollection = db.collection("meals_histories");
+
+  // Query data berdasarkan userId dan tanggal
+  const querySnapshot = await historyCollection
+    .where("userId", "==", userId)
+    .where("date", "==", date)
+    .get();
+
+  if (querySnapshot.empty) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      `No meal histories found for date "${date}"`
+    );
+  }
+
+  const histories = [];
+  querySnapshot.forEach((doc) => {
+    histories.push({ id: doc.id, ...doc.data() });
+  });
+
+  return histories;
+};
+
+
+const deleteHistories = async (historyId) => {
+  const docRef = db.collection("meals_histories").doc(historyId);
+
+  const existingDoc = await docRef.get();
+  if (!existingDoc.exists) {
+    throw new ApiError(httpStatus.NOT_FOUND, "Meal Not Found");
+  }
+
+  await docRef.delete();
+  return { message: "Meal deleted successfully" };
+};
+
 module.exports = {
   createOrUpdateMealHistory,
   addMealManual,
   getMealHistoriesByMealType,
+  getMealHistoriesByDate,
+  deleteHistories,
 };

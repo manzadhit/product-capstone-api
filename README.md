@@ -64,8 +64,14 @@ git clone https://github.com/manzadhit/Fancy-Todo-API-Prisma.git
 
 - [Meals](#meals)
 
-  <!-- - [Create Meal](#create-meal) -->
-  - [Searching Meals](#searching-meals)
+  - [Get Nutrition By Food Name](#get-nutrition-by-food-name)
+
+- [Meals Histories](#meals-histories)
+
+  - [Create Meals Histories](#create-meals-histories)
+  - [Create Manuall Meals Histories](#create-manual-meals-histories)
+  - [Searching Meals Histories By Meal Type](#searching-meals-histories-by-meal-type)
+  - [Searching Meals Histories By Date](#searching-meals-histories-by-date)
 
 ### Auth
 
@@ -489,68 +495,14 @@ GET /categories
 
 ### Meals
 
-<!-- #### Create Meal
+#### Get Nutrition By Food Name
 
-Menambahkan Makanan beserta Nutrisinya
-
-**URL**
-
-```bash
-POST /meals
-```
-
-**Body Request**
-
-```json
-{
-  "Calories": 202,
-  "Food Name": "meatball",
-  "Serving Size": "100 g",
-  "Serving Size (grams)": 100,
-  "nutritions": {
-    "Calcium": 46,
-    "Dietary Fiber": 0.5,
-    "Iron": 1.77,
-    "Protein": 12.41,
-    "Total Carbohydrate": 7.58,
-    "Vitamin A": 15,
-    "Vitamin B": 0,
-    "Vitamin C": 0.8
-  }
-}
-```
-
-**Response Success**
-
-```json
-{
-  "status": 200,
-  "message": "Fetch All Categories Success",
-  "data": [
-    {
-      "id": "EtY6adzL7xRWd3RUKFpv",
-      "title": "food",
-      "createdAt": "2024-11-24T16:52:40.591Z",
-      "updatedAt": "2024-11-24T16:52:40.591Z"
-    },
-    {
-      "id": "MYuBKBTKH17BPN9lYFNf",
-      "createdAt": "2024-11-24T17:05:38.425Z",
-      "title": "healthy",
-      "updatedAt": "2024-11-24T17:10:45.265Z"
-    }
-  ]
-}
-``` -->
-
-#### Searching Meals
-
-Melakukan pencarian makanan
+Mendapatkan nutrisi makanan dari nama makanan
 
 **URL**
 
 ```bash
-GET /meals/nutrition?food=foodName
+GET /meals/nutrition?food=meatball
 ```
 
 **Response Success**
@@ -564,21 +516,277 @@ GET /meals/nutrition?food=foodName
       "id": "04a88116-a34a-424b-9dd0-8d2553c2530e",
       "Calories": 202,
       "Food Name": "meatball",
-      "Serving Size": "100 g",
       "Serving Size (grams)": 100,
+      "createdAt": "2024-12-03T13:46:10.048Z",
+      "userId": "20ddEYDvRLEkEfPyC1Fa",
       "nutritions": {
         "Calcium": 46,
         "Dietary Fiber": 0.5,
         "Iron": 1.77,
         "Protein": 12.41,
-        "Total Carbohydrate": 7.58,
         "Vitamin A": 15,
         "Vitamin B": 0,
-        "Vitamin C": 0.8
+        "Vitamin C": 0.8,
+        "Carbohydrate": 7.58
       },
-      "createdAt": "2024-12-03T13:46:10.048Z",
-      "updatedAt": "2024-12-03T13:46:10.048Z",
-      "userId": "20ddEYDvRLEkEfPyC1Fa"
+      "updatedAt": "2024-12-04T02:11:05.525Z"
+    }
+  ]
+}
+```
+
+### Meals Histories
+
+#### Create Meals Histories
+
+Menambahkan Histories sekaligus dengan analisis Nutrisinya
+
+**URL**
+
+```bash
+POST /meals_histories
+```
+
+**Body Request**
+
+```json
+{
+  "mealIds": [
+    "182457cf-c017-4bf6-9a92-d5bf4633c8fd",
+    "18f49a2b-9e04-45e9-9ef1-7c5824fb1de1"
+  ]
+}
+```
+
+**Response Success**
+
+```json
+{
+  "status": 201,
+  "message": "Create Meal History Success",
+  "data": {
+    "id": "3ff3c08d-2f12-4c80-9f0a-2a0055d07911",
+    "total_calories": 435,
+    "total_nutrition": {
+      "Calcium": 83,
+      "Dietary Fiber": 1.4,
+      "Iron": 7.62,
+      "Protein": 13.86,
+      "Vitamin A": 104,
+      "Vitamin B": 0,
+      "Vitamin C": 3.8,
+      "Carbohydrate": 50.72
+    },
+    "meals_details": [
+      {
+        "id": "182457cf-c017-4bf6-9a92-d5bf4633c8fd",
+        "Calories": 367,
+        "Food Name": "red velvet cake",
+        "Serving Size (grams)": 100,
+        "createdAt": "2024-12-03T13:46:10.042Z",
+        "userId": "20ddEYDvRLEkEfPyC1Fa",
+        "nutritions": {
+          "Calcium": 38,
+          "Dietary Fiber": 1.4,
+          "Iron": 0.96,
+          "Protein": 6.81,
+          "Vitamin A": 74,
+          "Vitamin B": 0,
+          "Vitamin C": 0.1,
+          "Carbohydrate": 46.81
+        },
+        "updatedAt": "2024-12-04T02:11:06.697Z"
+      },
+      {
+        "id": "18f49a2b-9e04-45e9-9ef1-7c5824fb1de1",
+        "Calories": 68,
+        "Food Name": "oysters",
+        "Serving Size (grams)": 100,
+        "createdAt": "2024-12-03T13:46:10.041Z",
+        "userId": "20ddEYDvRLEkEfPyC1Fa",
+        "nutritions": {
+          "Calcium": 45,
+          "Dietary Fiber": 0,
+          "Iron": 6.66,
+          "Protein": 7.05,
+          "Vitamin A": 30,
+          "Vitamin B": 0,
+          "Vitamin C": 3.7,
+          "Carbohydrate": 3.91
+        },
+        "updatedAt": "2024-12-04T02:11:06.985Z"
+      }
+    ],
+    "userId": "20ddEYDvRLEkEfPyC1Fa",
+    "meal_type": "snack",
+    "date": "2024-12-05",
+    "createdAt": "2024-12-05T14:49:02.282Z",
+    "updatedAt": "2024-12-05T14:49:02.282Z",
+    "count": 2,
+    "label": "Vitamin A"
+  }
+}
+```
+
+#### Searching Meals Histories By Meal Type
+
+Melakukan pencarian history berdasarkan meal_type
+
+**URL**
+
+```bash
+GET /meals_histories/search?meal_type=snack
+```
+
+**Response Success**
+
+```json
+{
+  "status": 200,
+  "message": "Fetch Meals Histories Success",
+  "data": [
+    {
+      "id": "3ff3c08d-2f12-4c80-9f0a-2a0055d07911",
+      "total_calories": 435,
+      "total_nutrition": {
+        "Calcium": 83,
+        "Dietary Fiber": 1.4,
+        "Iron": 7.62,
+        "Protein": 13.86,
+        "Vitamin A": 104,
+        "Vitamin B": 0,
+        "Vitamin C": 3.8,
+        "Carbohydrate": 50.72
+      },
+      "meals_details": [
+        {
+          "id": "182457cf-c017-4bf6-9a92-d5bf4633c8fd",
+          "Calories": 367,
+          "Food Name": "red velvet cake",
+          "Serving Size (grams)": 100,
+          "createdAt": "2024-12-03T13:46:10.042Z",
+          "userId": "20ddEYDvRLEkEfPyC1Fa",
+          "nutritions": {
+            "Calcium": 38,
+            "Dietary Fiber": 1.4,
+            "Iron": 0.96,
+            "Protein": 6.81,
+            "Vitamin A": 74,
+            "Vitamin B": 0,
+            "Vitamin C": 0.1,
+            "Carbohydrate": 46.81
+          },
+          "updatedAt": "2024-12-04T02:11:06.697Z"
+        },
+        {
+          "id": "18f49a2b-9e04-45e9-9ef1-7c5824fb1de1",
+          "Calories": 68,
+          "Food Name": "oysters",
+          "Serving Size (grams)": 100,
+          "createdAt": "2024-12-03T13:46:10.041Z",
+          "userId": "20ddEYDvRLEkEfPyC1Fa",
+          "nutritions": {
+            "Calcium": 45,
+            "Dietary Fiber": 0,
+            "Iron": 6.66,
+            "Protein": 7.05,
+            "Vitamin A": 30,
+            "Vitamin B": 0,
+            "Vitamin C": 3.7,
+            "Carbohydrate": 3.91
+          },
+          "updatedAt": "2024-12-04T02:11:06.985Z"
+        }
+      ],
+      "userId": "20ddEYDvRLEkEfPyC1Fa",
+      "meal_type": "snack",
+      "date": "2024-12-05",
+      "createdAt": "2024-12-05T14:49:02.282Z",
+      "updatedAt": "2024-12-05T14:49:02.282Z",
+      "count": 2,
+      "label": "Vitamin A"
+    }
+  ]
+}
+```
+
+#### Searching Meals Histories By Date
+
+Melakukan pencarian history berdasarkan tanggal
+
+**URL**
+
+```bash
+GET /meals_histories/search?date=2024-12-05
+```
+
+**Response Success**
+
+```json
+{
+  "status": 200,
+  "message": "Fetch Meals Histories Success",
+  "data": [
+    {
+      "id": "3ff3c08d-2f12-4c80-9f0a-2a0055d07911",
+      "total_calories": 435,
+      "total_nutrition": {
+        "Calcium": 83,
+        "Dietary Fiber": 1.4,
+        "Iron": 7.62,
+        "Protein": 13.86,
+        "Vitamin A": 104,
+        "Vitamin B": 0,
+        "Vitamin C": 3.8,
+        "Carbohydrate": 50.72
+      },
+      "meals_details": [
+        {
+          "id": "182457cf-c017-4bf6-9a92-d5bf4633c8fd",
+          "Calories": 367,
+          "Food Name": "red velvet cake",
+          "Serving Size (grams)": 100,
+          "createdAt": "2024-12-03T13:46:10.042Z",
+          "userId": "20ddEYDvRLEkEfPyC1Fa",
+          "nutritions": {
+            "Calcium": 38,
+            "Dietary Fiber": 1.4,
+            "Iron": 0.96,
+            "Protein": 6.81,
+            "Vitamin A": 74,
+            "Vitamin B": 0,
+            "Vitamin C": 0.1,
+            "Carbohydrate": 46.81
+          },
+          "updatedAt": "2024-12-04T02:11:06.697Z"
+        },
+        {
+          "id": "18f49a2b-9e04-45e9-9ef1-7c5824fb1de1",
+          "Calories": 68,
+          "Food Name": "oysters",
+          "Serving Size (grams)": 100,
+          "createdAt": "2024-12-03T13:46:10.041Z",
+          "userId": "20ddEYDvRLEkEfPyC1Fa",
+          "nutritions": {
+            "Calcium": 45,
+            "Dietary Fiber": 0,
+            "Iron": 6.66,
+            "Protein": 7.05,
+            "Vitamin A": 30,
+            "Vitamin B": 0,
+            "Vitamin C": 3.7,
+            "Carbohydrate": 3.91
+          },
+          "updatedAt": "2024-12-04T02:11:06.985Z"
+        }
+      ],
+      "userId": "20ddEYDvRLEkEfPyC1Fa",
+      "meal_type": "snack",
+      "date": "2024-12-05",
+      "createdAt": "2024-12-05T14:49:02.282Z",
+      "updatedAt": "2024-12-05T14:49:02.282Z",
+      "count": 2,
+      "label": "Vitamin A"
     }
   ]
 }

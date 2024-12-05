@@ -4,14 +4,12 @@ const { authenticateJwt } = require("../middlewares/authMiddleware");
 // const checkRole = require("../middlewares/roleMiddleware");
 const mealHistoryController = require("../controllers/mealHistory.controller");
 
-router
-  .route("/")
-  .post(authenticateJwt, mealHistoryController.createMealHistory);
-
+router.post("/", authenticateJwt, mealHistoryController.createMealHistory);
 router.post("/manual", authenticateJwt, mealHistoryController.addMealManual);
+router.get("/search", authenticateJwt, mealHistoryController.searchMealHistories);
 
 router
-  .route("/search")
-  .get(authenticateJwt, mealHistoryController.getMealHistoriesByMealType);
+  .route("/:historyId")
+  .delete(authenticateJwt, mealHistoryController.deleteHistory);
 
 module.exports = router;
