@@ -69,7 +69,7 @@ git clone https://github.com/manzadhit/Fancy-Todo-API-Prisma.git
 - [Meals Histories](#meals-histories)
 
   - [Create Meals Histories](#create-meals-histories)
-  - [Create Manuall Meals Histories](#create-manual-meals-histories)
+  - [Create Manual Meals Histories](#create-manual-meals-histories)
   - [Searching Meals Histories By Meal Type](#searching-meals-histories-by-meal-type)
   - [Searching Meals Histories By Date](#searching-meals-histories-by-date)
 
@@ -624,6 +624,87 @@ POST /meals_histories
     "updatedAt": "2024-12-05T14:49:02.282Z",
     "count": 2,
     "label": "Vitamin A"
+  }
+}
+```
+
+#### Create Manual Meals Histories
+
+Menambahkan Histories secara manual
+
+**URL**
+
+```bash
+POST /meals_histories/manual
+```
+
+**Body Request**
+
+```json
+{
+  "Calories": 175,
+  "Food Name": "testing manual kedua",
+  "Serving Size (grams)": 100,
+  "nutritions": {
+    "Calcium": 14,
+    "Dietary Fiber": 1,
+    "Iron": 1.28,
+    "Protein": 6.96,
+    "Vitamin A": 11,
+    "Vitamin B": 1,
+    "Vitamin C": 0.7,
+    "Carbohydrate": 19.25
+  }
+}
+```
+
+**Response Success**
+
+```json
+{
+  "status": 201,
+  "message": "Add Meal Success",
+  "data": {
+    "id": "5a997544-7156-4bb8-8109-9ea8421afcbc",
+    "total_calories": 175,
+    "total_nutrition": {
+      "Calcium": 14,
+      "Dietary Fiber": 1,
+      "Iron": 1.28,
+      "Protein": 6.96,
+      "Vitamin A": 11,
+      "Vitamin B": 1,
+      "Vitamin C": 0.7,
+      "Carbohydrate": 19.25
+    },
+    "meals_details": [
+      {
+        "Calories": 175,
+        "Food Name": "testing manual kedua",
+        "Serving Size (grams)": 100,
+        "nutritions": {
+          "Calcium": 14,
+          "Dietary Fiber": 1,
+          "Iron": 1.28,
+          "Protein": 6.96,
+          "Vitamin A": 11,
+          "Vitamin B": 1,
+          "Vitamin C": 0.7,
+          "Carbohydrate": 19.25
+        },
+        "id": "6901df25-9b08-4387-a010-3bb5002c4274",
+        "userId": "20ddEYDvRLEkEfPyC1Fa",
+        "createdAt": "2024-12-07T11:30:39.429Z",
+        "updatedAt": "2024-12-07T11:30:39.429Z"
+      }
+    ],
+    "userId": "20ddEYDvRLEkEfPyC1Fa",
+    "meal_type": "dinner",
+    "date": "2024-12-07",
+    "createdAt": "2024-12-07T11:30:39.430Z",
+    "updatedAt": "2024-12-07T11:30:39.430Z",
+    "count": 1,
+    "label": "Carbohydrate"
   }
 }
 ```
