@@ -42,6 +42,7 @@ git clone https://github.com/manzadhit/Fancy-Todo-API-Prisma.git
 
   - [Register](#register)
   - [Login](#login)
+  - [Login dengan Google](#login-dengan-google)
 
 - [User](#user)
 
@@ -142,6 +143,52 @@ POST /auth/login
     },
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InloOThGVFBOV1dqOG00eGdNT25aIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MzIxOTc4MjB9.MGiRK5hzyZ8J97zfo7i-gMYYbVuIw7nzv6t0egAzFt0"
   }
+}
+```
+
+#### Login dengan Google
+
+Autentikasi pengguna menggunakan akun Google. Terdapat dua endpoint terkait: satu untuk memulai proses login, dan satu untuk menangani callback setelah autentikasi.
+
+---
+
+##### 1. Memulai Login Google
+
+Memulai proses autentikasi dengan Google. Pengguna akan diarahkan ke halaman login Google.
+
+**URL**
+
+```bash
+GET /auth/google
+```
+
+##### 2. Callback setelah Login Google
+
+Endpoint ini digunakan untuk menangani callback setelah pengguna berhasil login menggunakan Google. Jika autentikasi gagal, pengguna akan diarahkan kembali ke halaman /login
+
+**URL**
+
+```bash
+GET /auth/google/callback
+
+```
+
+**Response Success**
+
+```json
+{
+  "status": 200,
+  "message": "Login successful",
+  "user": {
+    "id": "sgTbFeY6VDc8dPvxeqpt",
+    "username": "I Nyoman Aditia",
+    "email": "aadhit407@gmail.com",
+    "password": "",
+    "role": "user",
+    "createdAt": "2024-12-09T09:34:36.024Z",
+    "updatedAt": "2024-12-09T09:34:36.024Z"
+  },
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InNnVGJGZVk2VkRjOGRQdnhlcXB0Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MzM3NDc5NjF9.rWbQGNEchyEKTe8MVgIm8A07L6pMoLSghvljOt9LVY0"
 }
 ```
 
@@ -548,10 +595,9 @@ POST /meals_histories
 ```
 
 **Headers Request**
-| Key          | Value         |
+| Key | Value |
 |--------------|---------------|
-| X-Timezone     | Asia/Makassar |
-
+| X-Timezone | Asia/Makassar |
 
 **Body Request**
 
@@ -645,10 +691,9 @@ POST /meals_histories/manual
 ```
 
 **Headers Request**
-| Key          | Value         |
+| Key | Value |
 |--------------|---------------|
-| X-Timezone     | Asia/Makassar |
-
+| X-Timezone | Asia/Makassar |
 
 **Body Request**
 
