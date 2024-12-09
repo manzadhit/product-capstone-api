@@ -4,7 +4,6 @@ const express = require("express");
 const httpStatus = require("http-status");
 const helmet = require("helmet");
 const passport = require("passport");
-const session = require("express-session");
 const config = require("./src/config/config");
 const routes = require("./src/routes/index");
 const {
