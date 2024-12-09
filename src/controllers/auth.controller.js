@@ -51,12 +51,16 @@ const login = catchAsync(async (req, res) => {
 });
 
 const callbackGoogle = catchAsync(async (req, res) => {
-  const user = req.user; 
+  const user = req.user;
+  console.log(req.user);
 
   const payload = { id: user.id, role: user.role };
   const token = jwt.sign(payload, SECRET_KEY);
 
-  if (user.redirect) {
+  // Mengambil flag redirect dari session
+  const redirect = req.session.redirect;
+
+  if (redirect) {
     return res.status(httpStatus.CREATED).send({
       status: httpStatus.CREATED,
       message: "Register successful",

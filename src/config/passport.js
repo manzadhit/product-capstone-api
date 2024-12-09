@@ -34,8 +34,11 @@ const googleVerify = async (accessToken, refreshToken, profile, done) => {
       password: "",
     });
 
-    return done(null, { ...user, redirect: true });
+    req.session.redirect = true;
+
+    return done(null, user);
   }
+  req.session.redirect = false;
   if (user) return done(null, user);
   return done(null, false);
 };
