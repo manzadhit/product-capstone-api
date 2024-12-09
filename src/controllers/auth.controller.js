@@ -52,23 +52,9 @@ const login = catchAsync(async (req, res) => {
 
 const callbackGoogle = catchAsync(async (req, res) => {
   const user = req.user;
-  console.log(req.user);
-
+  
   const payload = { id: user.id, role: user.role };
   const token = jwt.sign(payload, SECRET_KEY);
-
-  // Mengambil flag redirect dari session
-  const redirect = req.session.redirect;
-
-  if (redirect) {
-    return res.status(httpStatus.CREATED).send({
-      status: httpStatus.CREATED,
-      message: "Register successful",
-      user,
-      token,
-      redirect: true, // Mengirimkan flag redirect untuk frontend
-    });
-  }
 
   return res.status(httpStatus.OK).send({
     status: httpStatus.OK,
