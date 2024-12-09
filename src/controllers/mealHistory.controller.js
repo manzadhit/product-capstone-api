@@ -43,7 +43,7 @@ const searchMealHistories = catchAsync(async (req, res) => {
   let mealsHistories;
 
   if (date && meal_type) {
-    mealsHistories = await mealHistoryService.getMealHistoriesByMealType(
+    mealsHistories = await mealHistoryService.getMealHistoriesByDateAndMealType(
       userId,
       date,
       meal_type
