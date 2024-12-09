@@ -51,6 +51,8 @@ const login = catchAsync(async (req, res) => {
 });
 
 const callbackGoogle = catchAsync(async (req, res) => {
+  console.log(req.user);
+  
   const email = req.user.emails[0].value;
 
   let user = await userService.findUserByEmail(email);
