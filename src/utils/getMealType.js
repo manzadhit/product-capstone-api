@@ -1,7 +1,7 @@
-const getMealType = () => {
+const getMealType = (timeZone) => {
   // const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
   const currentHour = new Date().toLocaleString("en-US", {
-    timeZone: "Asia/Jakarta",
+    timeZone: timeZone,
     hour: "numeric",
     hour12: false,
   });

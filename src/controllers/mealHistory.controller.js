@@ -2,14 +2,19 @@ const { mealHistoryService } = require("../services");
 const catchAsync = require("../utils/catchAsync");
 const httpStatus = require("http-status");
 const ApiError = require("../utils/ApiError");
+const getMealType = require("../utils/getMealType");
+
 
 const createMealHistory = catchAsync(async (req, res) => {
   const userId = req.user.id;
   const { mealIds } = req.body;
+  const timeZone = req.headers["x-timezone"];
+  const meal_type = getMealType(timeZone);
 
   const mealHistory = await mealHistoryService.createOrUpdateMealHistory(
     userId,
-    mealIds
+    mealIds,
+    meal_type
   );
 
   return res.status(httpStatus.CREATED).send({
@@ -21,7 +26,14 @@ const createMealHistory = catchAsync(async (req, res) => {
 
 const addMealManual = catchAsync(async (req, res) => {
   const userId = req.user.id;
-  const meal = await mealHistoryService.addMealManual(userId, req.body);
+  const timeZone = req.headers["x-timezone"];
+  
+  const meal_type = getMealType(timeZone);
+  const meal = await mealHistoryService.addMealManual(
+    userId,
+    req.body,
+    meal_type
+  );
   return res.status(httpStatus.CREATED).send({
     status: httpStatus.CREATED,
     message: "Add Meal Success",

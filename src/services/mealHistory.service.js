@@ -3,8 +3,6 @@ const db = require("../config/firestore");
 const ApiError = require("../utils/ApiError");
 const httpStatus = require("http-status");
 const mealService = require("./meal.service");
-const getMealType = require("../utils/getMealType");
-
 
 const roundToTwoDecimalPlaces = (value) => {
   return parseFloat(value.toFixed(2));
@@ -147,12 +145,11 @@ const upsertMealHistory = async (
 };
 
 
-const createOrUpdateMealHistory = async (userId, mealIds) => {
+const createOrUpdateMealHistory = async (userId, mealIds, meal_type) => {
   if (!mealIds || mealIds.length === 0) {
     throw new ApiError(httpStatus.BAD_REQUEST, "Meal IDs are required.");
   }
 
-  const meal_type = getMealType();
   const date = new Date().toISOString().split("T")[0];
 
   const historyCollection = db.collection("meals_histories");
@@ -188,8 +185,7 @@ const createOrUpdateMealHistory = async (userId, mealIds) => {
   );
 };
 
-const addMealManual = async (userId, meal) => {
-  const meal_type = getMealType();
+const addMealManual = async (userId, meal, meal_type) => {
   const date = new Date().toISOString().split("T")[0];
 
   const historyCollection = db.collection("meals_histories");
