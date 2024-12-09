@@ -550,7 +550,7 @@ POST /meals_histories
 **Headers Request**
 | Key          | Value         |
 |--------------|---------------|
-| Timezone     | Asia/Makassar |
+| X-Timezone     | Asia/Makassar |
 
 
 **Body Request**
@@ -647,7 +647,7 @@ POST /meals_histories/manual
 **Headers Request**
 | Key          | Value         |
 |--------------|---------------|
-| Timezone     | Asia/Makassar |
+| X-Timezone     | Asia/Makassar |
 
 
 **Body Request**
