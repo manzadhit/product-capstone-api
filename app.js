@@ -16,15 +16,6 @@ const { jwtStrategy, googleStrategy } = require("./src/config/passport");
 
 const app = express();
 
-// Middleware session (dibutuhkan untuk Passport)
-app.use(
-  session({
-    secret: "your_secret_key",
-    resave: false,
-    saveUninitialized: true,
-  })
-);
-
 // set security HTTP headers
 app.use(helmet());
 
@@ -38,7 +29,6 @@ app.use(express.urlencoded({ extended: true }));
 passport.use("jwt", jwtStrategy);
 passport.use("google", googleStrategy);
 app.use(passport.initialize());
-app.use(passport.session());
 
 // Gunakan rute utama aplikasi
 app.use(routes);
