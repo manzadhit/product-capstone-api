@@ -6,7 +6,12 @@ const ApiError = require("../utils/ApiError");
 const createUser = async (data) => {
   const docRef = db.collection("users").doc();
 
-  if (data.password !== null) data.password = bcrypt.hashSync(data.password, 8);
+  // Berikan default untuk password jika null
+  if (!data.password) {
+    data.password = "";
+  } else {
+    data.password = bcrypt.hashSync(data.password, 8);
+  }
 
   let role = "user";
   if (data.role && data.role === "admin") {
@@ -19,6 +24,7 @@ const createUser = async (data) => {
   await docRef.set({ ...data, role, createdAt, updatedAt });
   return { id: docRef.id, ...data, role, createdAt, updatedAt };
 };
+
 
 const getUsers = async () => {
   const snapshot = await db.collection("users").get();

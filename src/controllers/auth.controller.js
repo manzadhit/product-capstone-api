@@ -58,7 +58,7 @@ const callbackGoogle = catchAsync(async (req, res) => {
     user = await userService.createUser({
       username: req.user.displayName,
       email: req.user.emails[0].value,
-      password: null,
+      password: "", // Default password untuk Google Login
     });
 
     const payload = { id: user.id, role: user.role };
@@ -83,6 +83,7 @@ const callbackGoogle = catchAsync(async (req, res) => {
     token,
   });
 });
+
 
 module.exports = {
   register,
