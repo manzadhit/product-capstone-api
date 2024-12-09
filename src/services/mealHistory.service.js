@@ -279,6 +279,31 @@ const getMealHistoriesByDate = async (userId, date) => {
   return histories;
 };
 
+const getMealHistoriesByDateAndMealType = async (userId, date, mealType) => {
+  const historyCollection = db.collection("meals_histories");
+
+  // Query data berdasarkan userId dan tanggal
+  const querySnapshot = await historyCollection
+    .where("userId", "==", userId)
+    .where("date", "==", date)
+    .where("meal_type", "==", mealType)
+    .get();
+
+  if (querySnapshot.empty) {
+    throw new ApiError(
+      httpStatus.NOT_FOUND,
+      `No meal histories found for date "${date}"`
+    );
+  }
+
+  const histories = [];
+  querySnapshot.forEach((doc) => {
+    histories.push({ id: doc.id, ...doc.data() });
+  });
+
+  return histories;
+};
+
 
 const deleteHistories = async (historyId) => {
   const docRef = db.collection("meals_histories").doc(historyId);
@@ -297,5 +322,6 @@ module.exports = {
   addMealManual,
   getMealHistoriesByMealType,
   getMealHistoriesByDate,
+  getMealHistoriesByDateAndMealType,
   deleteHistories,
 };

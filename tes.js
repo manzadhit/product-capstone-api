@@ -1,11 +1,23 @@
-console.log(new Date().toISOString());
-const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-const currentHour = new Date().toLocaleString("en-US", {
-  timeZone: timezone,
-  hour: "numeric",
-  hour12: false,
-});
+const getMealType = () => {
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const currentHour = new Date().toLocaleString("en-US", {
+    timeZone: timezone,
+    hour: "numeric",
+    hour12: false,
+  });
 
-console.log(currentHour);
-console.log(timezone);
+  if (currentHour >= 7 && currentHour <= 10) {
+    return "breakfast";
+  } else if (currentHour >= 12 && currentHour <= 16) {
+    return "lunch";
+  } else if (currentHour >= 18 && currentHour <= 20) {
+    return "dinner";
+  } else {
+    return "snack";
+  }
+};
 
+console.log(getMealType());
+
+
+module.exports = getMealType;

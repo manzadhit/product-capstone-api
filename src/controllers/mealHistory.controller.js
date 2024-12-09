@@ -42,7 +42,13 @@ const searchMealHistories = catchAsync(async (req, res) => {
 
   let mealsHistories;
 
-  if (meal_type) {
+  if (date && meal_type) {
+    mealsHistories = await mealHistoryService.getMealHistoriesByMealType(
+      userId,
+      date,
+      meal_type
+    );
+  } else if (meal_type) {
     // Panggil layanan untuk filter berdasarkan meal_type
     mealsHistories = await mealHistoryService.getMealHistoriesByMealType(
       userId,
@@ -62,7 +68,6 @@ const searchMealHistories = catchAsync(async (req, res) => {
     data: mealsHistories,
   });
 });
-
 
 const deleteHistory = catchAsync(async (req, res) => {
   const { historyId } = req.params;
