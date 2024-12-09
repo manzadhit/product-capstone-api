@@ -547,6 +547,12 @@ Menambahkan Histories sekaligus dengan analisis Nutrisinya
 POST /meals_histories
 ```
 
+**Headers Request**
+| Key          | Value         |
+|--------------|---------------|
+| Timezone     | Asia/Makassar |
+
+
 **Body Request**
 
 ```json
@@ -637,6 +643,12 @@ Menambahkan Histories secara manual
 ```bash
 POST /meals_histories/manual
 ```
+
+**Headers Request**
+| Key          | Value         |
+|--------------|---------------|
+| Timezone     | Asia/Makassar |
+
 
 **Body Request**
 
