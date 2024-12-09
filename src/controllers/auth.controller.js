@@ -56,10 +56,20 @@ const callbackGoogle = catchAsync(async (req, res) => {
   // Jika tidak ditemukan, buat user baru dengan role "user"
   if (!user) {
     user = await userService.createUser({
-      googleId: user.id,
-      username: user.displayName,
-      email: user.emails[0].value,
-      avatar: user.photos?.[0]?.value || null,
+      username: req.user.displayName,
+      email: req.user.emails[0].value,
+      password: null,
+    });
+
+    const payload = { id: user.id, role: user.role };
+    const token = jwt.sign(payload, SECRET_KEY);
+
+    return res.status(httpStatus.CREATED).send({
+      status: httpStatus.CREATED,
+      message: "Register successful",
+      user,
+      token,
+      redirect: true,
     });
   }
 

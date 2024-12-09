@@ -6,7 +6,7 @@ const ApiError = require("../utils/ApiError");
 const createUser = async (data) => {
   const docRef = db.collection("users").doc();
 
-  if (!data.googleId) data.password = bcrypt.hashSync(data.password, 8);
+  if (data.password !== null) data.password = bcrypt.hashSync(data.password, 8);
 
   let role = "user";
   if (data.role && data.role === "admin") {
