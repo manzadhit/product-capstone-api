@@ -24,16 +24,17 @@ const googleOption = {
 };
 
 const googleVerify = async (accessToken, refreshToken, profile, done) => {
-  let user = await userService.findUserByGoogleId(profile.id);
+  const email = profile.emails[0].value;
+  let user = await userService.findUserByEmail(email);
 
-  // Jika tidak ditemukan, buat user baru dengan role "user"
   if (!user) {
     user = await userService.createUser({
-      googleId: profile.id,
       username: profile.displayName,
-      email: profile.emails[0].value,
-      avatar: profile.photos?.[0]?.value || null,
+      email,
+      password: "",
     });
+
+    return done(null, { user, redirect: true });
   }
   if (user) return done(null, user);
   return done(null, false);

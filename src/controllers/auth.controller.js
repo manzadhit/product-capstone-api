@@ -51,33 +51,20 @@ const login = catchAsync(async (req, res) => {
 });
 
 const callbackGoogle = catchAsync(async (req, res) => {
-  console.log(req.user);
-  
-  const email = req.user.emails[0].value;
+  const user = req.user; 
 
-  let user = await userService.findUserByEmail(email);
+  const payload = { id: user.id, role: user.role };
+  const token = jwt.sign(payload, SECRET_KEY);
 
-  if (!user) {
-    user = await userService.createUser({
-      username: req.user.displayName,
-      email, 
-      password: "", 
-    });
-
-    const payload = { id: user.id, role: user.role };
-    const token = jwt.sign(payload, SECRET_KEY);
-
+  if (user.redirect) {
     return res.status(httpStatus.CREATED).send({
       status: httpStatus.CREATED,
       message: "Register successful",
       user,
       token,
-      redirect: true,
+      redirect: true, // Mengirimkan flag redirect untuk frontend
     });
   }
-
-  const payload = { id: user.id, role: user.role };
-  const token = jwt.sign(payload, SECRET_KEY);
 
   return res.status(httpStatus.OK).send({
     status: httpStatus.OK,
@@ -86,7 +73,6 @@ const callbackGoogle = catchAsync(async (req, res) => {
     token,
   });
 });
-
 
 module.exports = {
   register,
