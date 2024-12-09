@@ -51,14 +51,15 @@ const login = catchAsync(async (req, res) => {
 });
 
 const callbackGoogle = catchAsync(async (req, res) => {
-  let user = await userService.getUserById(req.user.id);
+  const email = req.user.emails[0].value;
 
-  // Jika tidak ditemukan, buat user baru dengan role "user"
+  let user = await userService.findUserByEmail(email);
+
   if (!user) {
     user = await userService.createUser({
       username: req.user.displayName,
-      email: req.user.emails[0].value,
-      password: "", // Default password untuk Google Login
+      email, 
+      password: "", 
     });
 
     const payload = { id: user.id, role: user.role };
