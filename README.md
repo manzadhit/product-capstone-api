@@ -162,38 +162,18 @@ Memulai proses autentikasi dengan Google. Pengguna akan diarahkan ke halaman log
 **URL**
 
 ```bash
-GET /auth/google
+POST /auth/login/firebase
 ```
 
-##### 2. Callback setelah Login Google
-
-Endpoint ini digunakan untuk menangani callback setelah pengguna berhasil login menggunakan Google. Jika autentikasi gagal, pengguna akan diarahkan kembali ke halaman /login
-
-**URL**
-
-```bash
-GET /auth/google/callback
-
-```
-
-**Response Success**
+**Body Request**
 
 ```json
 {
-  "status": 200,
-  "message": "Login successful",
-  "user": {
-    "id": "sgTbFeY6VDc8dPvxeqpt",
-    "username": "I Nyoman Aditia",
-    "email": "aadhit407@gmail.com",
-    "password": "",
-    "role": "user",
-    "createdAt": "2024-12-09T09:34:36.024Z",
-    "updatedAt": "2024-12-09T09:34:36.024Z"
-  },
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InNnVGJGZVk2VkRjOGRQdnhlcXB0Iiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MzM3NDc5NjF9.rWbQGNEchyEKTe8MVgIm8A07L6pMoLSghvljOt9LVY0"
+  "idToken": "token"
 }
 ```
+
+
 
 ### User
 

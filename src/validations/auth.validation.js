@@ -15,7 +15,12 @@ const login = {
     password: Joi.string().required().custom(password),
   }),
 };
+const loginFirebase = {
+  body: Joi.object().keys({
+    idToken: Joi.string().required()
+  }),
+};
 
 module.exports = {
-  register, login
+  register, login, loginFirebase
 }

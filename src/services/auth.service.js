@@ -1,11 +1,11 @@
 const httpStatus = require("http-status");
 const bcrypt = require("bcrypt");
-// const db = require("../config/firestore");
+const admin = require("../config/firebaseAdmin");
 const ApiError = require("../utils/ApiError");
-const { findUserByEmail } = require("./user.service");
+const userService = require("./user.service");
 
 const loginUserWithEmailAndPassword = async (email, password) => {
-  const user = await findUserByEmail(email);
+  const user = await userService.findUserByEmail(email);
 
   if (!user) {
     throw new ApiError(
@@ -26,7 +26,31 @@ const loginUserWithEmailAndPassword = async (email, password) => {
   return user;
 };
 
+// Fungsi untuk memverifikasi token Firebase
+const verifyFirebaseToken = async (idToken) => {
+  try {
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    return decodedToken;
+  // eslint-disable-next-line no-unused-vars
+  } catch (error) {
+    throw new ApiError(401, 'Invalid Firebase token');
+  }
+};
+
+const findOrCreateUser = async (userData) => {
+  const user = await userService.findUserByEmail(userData.email);
+
+  if(!user) {
+    const newUser = await userService.createUser(userData);
+    return newUser
+  }
+
+  return user;
+};
+
 
 module.exports = {
   loginUserWithEmailAndPassword,
+  verifyFirebaseToken,
+  findOrCreateUser,
 };

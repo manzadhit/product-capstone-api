@@ -50,9 +50,22 @@ const login = catchAsync(async (req, res) => {
   });
 });
 
-const callbackGoogle = catchAsync(async (req, res) => {
-  const user = req.user;
-  
+const loginWithFirebase = catchAsync(async (req, res) => {
+  const { idToken } = req.body;
+
+  const decodedToken = await authService.verifyFirebaseToken(idToken);
+
+  let username = decodedToken.email.split("@")[0];
+
+  const dataUser = {
+    username: username,
+    email: decodedToken.email,
+    password: "", 
+    role: "user", 
+  };
+
+  const user = await authService.findOrCreateUser(dataUser);
+
   const payload = { id: user.id, role: user.role };
   const token = jwt.sign(payload, SECRET_KEY);
 
@@ -67,5 +80,5 @@ const callbackGoogle = catchAsync(async (req, res) => {
 module.exports = {
   register,
   login,
-  callbackGoogle,
+  loginWithFirebase,
 };
