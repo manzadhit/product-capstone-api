@@ -1,6 +1,6 @@
 const objectId = (value, helpers) => {
-  if (!value.match(/^[A-Za-z0-9]{20,28}$/)) {
-    return helpers.message('"{{#label}}" must be a valid id');
+  if (!value.match(/^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi)) {
+    return helpers.message('"{{#label}}" must be a valid UUID');
   }
   return value;
 };
