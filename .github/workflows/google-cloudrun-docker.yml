@@ -25,6 +25,9 @@ jobs:
       - name: Setup key.json
         run: |
           echo '${{ secrets.KEY_JSON }}' | jq '.' > src/config/key.json
+      - name: Setup firebaseKey.json
+        run: |
+          echo '${{ secrets.FIREBASEKEY_JSON }}' | jq '.' > src/config/firebaseKey.json
 
       - name: Google Auth
         id: auth

@@ -1,3 +1,4 @@
 node_modules/
 .env
 src/config/key.json
+src/config/firebaseKey.json
