@@ -6,7 +6,7 @@ const mealController = require("../controllers/meal.controller");
 
 router
   .route("/")
-  .post(authenticateJwt, mealController.createMeal)
+  .post(authenticateJwt, checkRole("admin"), mealController.createMeal)
   .get(authenticateJwt, checkRole("admin"), mealController.getAllMeals);
 
 router
@@ -16,7 +16,7 @@ router
 router
   .route("/:mealId")
   .get(authenticateJwt, mealController.getMealById)
-  .put(authenticateJwt, mealController.updateMeal)
-  .delete(authenticateJwt, mealController.deleteMeal);
+  .put(authenticateJwt, checkRole("admin"), mealController.updateMeal)
+  .delete(authenticateJwt,checkRole("admin"), mealController.deleteMeal);
 
 module.exports = router;

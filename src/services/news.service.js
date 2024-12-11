@@ -1,11 +1,13 @@
 const db = require("../config/firestore");
+const { v4: uuidv4 } = require("uuid");
 const { uploadImageToStorage } = require("../utils/uploadImage");
 const { deleteImageFromStorage } = require("../utils/deleteImage");
 const ApiError = require("../utils/ApiError");
 const httpStatus = require("http-status");
 
 const createNews = async (data, imageFile) => {
-  const docRef = db.collection("news").doc();
+  const newsId = uuidv4();
+  const docRef = db.collection("news").doc(newsId);
 
   const imageUrl = await uploadImageToStorage(imageFile);
   const createdAt = new Date().toISOString();

@@ -566,6 +566,7 @@ GET /meals/nutrition?food=meatball
       "Serving Size (grams)": 100,
       "createdAt": "2024-12-03T13:46:10.048Z",
       "userId": "20ddEYDvRLEkEfPyC1Fa",
+      "image": "https://storage.googleapis.com/meals_images_nutricheck/gambar%20makanan/Meatball.jpg",
       "nutritions": {
         "Calcium": 46,
         "Dietary Fiber": 0.5,
@@ -637,6 +638,7 @@ POST /meals_histories
         "Serving Size (grams)": 100,
         "createdAt": "2024-12-03T13:46:10.042Z",
         "userId": "20ddEYDvRLEkEfPyC1Fa",
+        "image": "https://storage.googleapis.com/meals_images_nutricheck/gambar%20makanan/Tacos.jpg",
         "nutritions": {
           "Calcium": 38,
           "Dietary Fiber": 1.4,
@@ -656,6 +658,7 @@ POST /meals_histories
         "Serving Size (grams)": 100,
         "createdAt": "2024-12-03T13:46:10.041Z",
         "userId": "20ddEYDvRLEkEfPyC1Fa",
+        "image": "https://storage.googleapis.com/meals_images_nutricheck/gambar%20makanan/Tacos.jpg",
         "nutritions": {
           "Calcium": 45,
           "Dietary Fiber": 0,

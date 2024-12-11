@@ -1,4 +1,5 @@
 const db = require("../config/firestore");
+const { v4: uuidv4 } = require("uuid");
 const ApiError = require("../utils/ApiError");
 const httpStatus = require("http-status");
 
@@ -12,7 +13,9 @@ const createCategory = async (data) => {
     throw new ApiError(httpStatus.BAD_REQUEST, "Category already exists");
   }
 
-  const docRef = db.collection("categories").doc();
+  const categoryId = uuidv4();
+
+  const docRef = db.collection("categories").doc(categoryId);
   const createdAt = new Date().toISOString();
   const updatedAt = createdAt;
 

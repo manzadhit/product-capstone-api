@@ -1,10 +1,12 @@
 const httpStatus = require("http-status");
 const bcrypt = require("bcrypt");
+const { v4: uuidv4 } = require("uuid");
 const db = require("../config/firestore");
 const ApiError = require("../utils/ApiError");
 
 const createUser = async (data) => {
-  const docRef = db.collection("users").doc();
+  const userId = uuidv4();
+  const docRef = db.collection("users").doc(userId);
 
   // Berikan default untuk password jika null
   if (!data.password) {

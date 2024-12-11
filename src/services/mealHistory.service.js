@@ -11,12 +11,12 @@ const roundToTwoDecimalPlaces = (value) => {
 const calculateTotalNutritionAndLabel = (meals_details) => {
   const totalNutrition = {
     Calcium: 0,
-    "Dietary Fiber": 0,
+    DietaryFiber: 0,
     Iron: 0,
     Protein: 0,
-    "Vitamin A": 0,
-    "Vitamin B": 0,
-    "Vitamin C": 0,
+    VitaminA: 0,
+    VitaminB: 0,
+    VitaminC: 0,
     Carbohydrate: 0,
   };
 
@@ -203,7 +203,7 @@ const addMealManual = async (userId, meal, meal_type) => {
   for (const key in meal.nutritions) {
     meal.nutritions[key] = roundToTwoDecimalPlaces(meal.nutritions[key]);
   }
-
+  meal.image = "";
   const mealWithMetadata = {
     ...meal,
     id: uuidv4(),
