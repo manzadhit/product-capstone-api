@@ -101,9 +101,10 @@ POST /auth/register
 ```json
 {
   "status": 201,
-  "message": "Register successfully",
+  "message": "Register Succesfully",
   "data": {
-    "userId": "CdF6VTUg97a3mey8Qr1p"
+    "userId": "ae31b9c8-f4df-456f-801c-c8da78e28320",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMzFiOWM4LWY0ZGYtNDU2Zi04MDFjLWM4ZGE3OGUyODMyMCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzMzODkyNTc2fQ.gWwwJwy0HwQaraYsqoqds0zr15q0AbjCYJBTwEhzLRo"
   }
 }
 ```
@@ -118,6 +119,15 @@ Login menggunakan email dan password
 POST /auth/login
 ```
 
+**Body Request**
+
+```json
+{
+  "email": "john.doe@example.com",
+  "password": "johndoe123"
+}
+```
+
 **Response Success**
 
 ```json
@@ -126,22 +136,15 @@ POST /auth/login
   "message": "Login Successfully",
   "data": {
     "user": {
-      "id": "yh98FTPNWWj8m4xgMOnZ",
-      "username": "nyoman",
-      "email": "nyoman9@gmail.com",
-      "password": "$2b$08$x.QTlIX2YMQIKYNtREFyB.Rsn4WCwSZ.5V5E.1x4HoSxf0fR5Hu46",
+      "id": "ae31b9c8-f4df-456f-801c-c8da78e28320",
+      "username": "John Doe",
+      "email": "john.doe@example.com",
+      "password": "$2b$08$zp.Xg.5eWX9S84fht2QHcOsxcN0cmwYvRD8A9In/zSBOa78h6uyiO",
       "role": "user",
-      "createdAt": "2024-11-21T06:12:23.222Z",
-      "updatedAt": "2024-11-21T06:12:23.222Z",
-      "bmi": {
-        "gender": "Male",
-        "age": 20,
-        "height": 185,
-        "weight": 65,
-        "activity": "mengoding"
-      }
+      "createdAt": "2024-12-11T04:49:36.141Z",
+      "updatedAt": "2024-12-11T04:49:36.141Z"
     },
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6InloOThGVFBOV1dqOG00eGdNT25aIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3MzIxOTc4MjB9.MGiRK5hzyZ8J97zfo7i-gMYYbVuIw7nzv6t0egAzFt0"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImFlMzFiOWM4LWY0ZGYtNDU2Zi04MDFjLWM4ZGE3OGUyODMyMCIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzMzODkyNjM5fQ.CLGrw0e-dmRJkMhUsZRHW2gppfThwsGmCDs5AnLdUFk"
   }
 }
 ```
@@ -210,7 +213,8 @@ POST /users
 {
   "username": "John Doe",
   "email": "john.doe@example.com",
-  "password": "johndoe123"
+  "password": "johndoe123",
+  "role": "user"
 }
 ```
 
@@ -221,7 +225,7 @@ POST /users
   "status": 201,
   "message": "Create User Success",
   "data": {
-    "userId": "CdF6VTUg97a3mey8Qr1p"
+    "userId": "ae31b9c8-f4df-456f-801c-c8da78e28320"
   }
 }
 ```
@@ -410,24 +414,14 @@ GET /news
   "message": "Fetch All News Success",
   "data": [
     {
-      "id": "BRb4ZMWZVZn65QkofRGF",
-      "title": "5 superfoods for iron health",
-      "description": "You’ve definitely heard of superfoods, but you might not know which ones they are. Here’s a list of meals that are so excellent for you, they’re exceptional.",
-      "category": ["healty", "food"],
-      "url": "https://medium.com/@RalucaA/5-superfoods-for-iron-health-c277682c9a2a",
-      "image": "https://storage.googleapis.com/news-nutricheck/news_images/1732381183616_5 superfoods for iron health.jpg",
-      "createdAt": "2024-11-23T16:59:47.405Z",
-      "updatedAt": "2024-11-23T16:59:47.405Z"
-    },
-    {
-      "id": "GmdABlNjcMTDkVThTTuj",
-      "title": "Healthy Eating for Heart Health",
-      "description": "For general health, maintaining a healthy heart is essential. Adopting a healthy diet that is balanced and nutrient-rich is one of the major aspects in promoting heart health.",
-      "category": ["healty", "food"],
-      "url": "https://medium.com/@michaelpaland/healthy-eating-for-heart-health-d721670e4443",
-      "image": "https://storage.googleapis.com/news-nutricheck/news_images/1732381377745_5 superfoods for iron health.jpg",
-      "createdAt": "2024-11-23T17:02:58.859Z",
-      "updatedAt": "2024-11-23T17:02:58.859Z"
+      "id": "7525cdc2-5461-4c8a-923f-eff698f41147",
+      "title": "Foods That Energize and Enhance Mental Focus",
+      "description": "Ever experienced that feeling of tiredness like you are running out of fuel half through the day? If the afternoons lull gets you scavenging for that sugary junk or downing another cup of coffee, maybe it is time of altering your options.",
+      "categories": ["healthy", "food"],
+      "url": "https://medium.com/@franz_70100/foods-that-energize-and-enhance-mental-focus-783f827524a1",
+      "image": "https://storage.googleapis.com/news-nutricheck/news_images/1733893276189_Foods That Energize.jpg",
+      "createdAt": "2024-12-11T05:01:16.539Z",
+      "updatedAt": "2024-12-11T05:01:16.539Z"
     }
   ]
 }
@@ -451,14 +445,17 @@ GET /news/title/:title
   "message": "Fetch News by Title Success",
   "data": [
     {
-      "id": "GmdABlNjcMTDkVThTTuj",
-      "title": "Healthy Eating for Heart Health",
-      "description": "For general health, maintaining a healthy heart is essential. Adopting a healthy diet that is balanced and nutrient-rich is one of the major aspects in promoting heart health.",
-      "category": ["healty", "food"],
-      "url": "https://medium.com/@michaelpaland/healthy-eating-for-heart-health-d721670e4443",
-      "createdAt": "2024-11-23T17:02:58.859Z",
-      "image": "https://storage.googleapis.com/news-nutricheck/news_images/1732381525612_Healthy Eating for Heart Health.jpg",
-      "updatedAt": "2024-11-23T17:05:25.612Z"
+      "id": "5db47021-0fda-4c4e-8190-6d0e22c8baad",
+      "title": "Foods That Energize and Enhance Mental Focus",
+      "description": "Ever experienced that feeling of tiredness like you are running out of fuel half through the day? If the afternoons lull gets you scavenging for that sugary junk or downing another cup of coffee, maybe it is time of altering your options.",
+      "categories": [
+        "6b8652eb-86dd-49d6-b3bf-ff488dc279c3",
+        "c91ef267-b2ff-4da0-9b08-eba28b448817"
+      ],
+      "url": "https://medium.com/@franz_70100/foods-that-energize-and-enhance-mental-focus-783f827524a1",
+      "image": "https://storage.googleapis.com/news-nutricheck/news_images/1733893498137_Foods That Energize.jpg",
+      "createdAt": "2024-12-11T05:04:58.468Z",
+      "updatedAt": "2024-12-11T05:04:58.468Z"
     }
   ]
 }
@@ -482,24 +479,14 @@ GET /news/category/:category
   "message": "Fetch News by Category Success",
   "data": [
     {
-      "id": "NmuXwld70VTKAIDD7kT7",
+      "id": "5db47021-0fda-4c4e-8190-6d0e22c8baad",
       "title": "Foods That Energize and Enhance Mental Focus",
       "description": "Ever experienced that feeling of tiredness like you are running out of fuel half through the day? If the afternoons lull gets you scavenging for that sugary junk or downing another cup of coffee, maybe it is time of altering your options.",
       "categories": ["healthy", "food"],
       "url": "https://medium.com/@franz_70100/foods-that-energize-and-enhance-mental-focus-783f827524a1",
-      "image": "https://storage.googleapis.com/news-nutricheck/news_images/1732468496194_Foods That Energize.jpg",
-      "createdAt": "2024-11-24T17:14:57.451Z",
-      "updatedAt": "2024-11-24T17:14:57.451Z"
-    },
-    {
-      "id": "tqkVj1BcI8OQuihDbjFz",
-      "title": "Want to Be a Better Cook? Perk Up Your Ears and Listen to the Food",
-      "description": "Here’s a bold claim for a kicker: When it comes to helping you put delicious food on the table, even the best-selling cookbooks miss the mark. And before you ask, yes, Julia Child’s cookbooks are the exception. They always are.",
-      "categories": ["food"],
-      "url": "https://medium.com/tastyble/want-to-be-a-better-cook-perk-up-your-ears-and-listen-to-the-food-0cfc77ddbd65",
-      "image": "https://storage.googleapis.com/news-nutricheck/news_images/1732467497807_Want to Be a Better.jpg",
-      "createdAt": "2024-11-24T16:58:25.022Z",
-      "updatedAt": "2024-11-24T16:58:25.022Z"
+      "image": "https://storage.googleapis.com/news-nutricheck/news_images/1733893498137_Foods That Energize.jpg",
+      "createdAt": "2024-12-11T05:04:58.468Z",
+      "updatedAt": "2024-12-11T05:04:58.468Z"
     }
   ]
 }
@@ -525,16 +512,22 @@ GET /categories
   "message": "Fetch All Categories Success",
   "data": [
     {
-      "id": "EtY6adzL7xRWd3RUKFpv",
-      "title": "food",
-      "createdAt": "2024-11-24T16:52:40.591Z",
-      "updatedAt": "2024-11-24T16:52:40.591Z"
+      "id": "6b8652eb-86dd-49d6-b3bf-ff488dc279c3",
+      "createdAt": "2024-12-11T04:31:39.545Z",
+      "title": "healthy",
+      "updatedAt": "2024-12-11T05:04:42.141Z"
     },
     {
-      "id": "MYuBKBTKH17BPN9lYFNf",
-      "createdAt": "2024-11-24T17:05:38.425Z",
-      "title": "healthy",
-      "updatedAt": "2024-11-24T17:10:45.265Z"
+      "id": "a1bc394d-e7d9-4882-a920-066508147458",
+      "title": "Recipes",
+      "createdAt": "2024-12-11T04:36:26.381Z",
+      "updatedAt": "2024-12-11T04:36:26.381Z"
+    },
+    {
+      "id": "c91ef267-b2ff-4da0-9b08-eba28b448817",
+      "title": "food",
+      "createdAt": "2024-12-11T04:31:48.321Z",
+      "updatedAt": "2024-12-11T04:31:48.321Z"
     }
   ]
 }
@@ -560,24 +553,24 @@ GET /meals/nutrition?food=meatball
   "message": "Fetch Meals by Food Name Success",
   "data": [
     {
-      "id": "04a88116-a34a-424b-9dd0-8d2553c2530e",
-      "Calories": 202,
-      "Food Name": "meatball",
+      "id": "caeee0e8-4b62-4ba8-b760-f4d9597dce93",
+      "Food Name": "Meatball",
       "Serving Size (grams)": 100,
-      "createdAt": "2024-12-03T13:46:10.048Z",
-      "userId": "20ddEYDvRLEkEfPyC1Fa",
-      "image": "https://storage.googleapis.com/meals_images_nutricheck/gambar%20makanan/Meatball.jpg",
+      "Calories": 202,
       "nutritions": {
         "Calcium": 46,
-        "Dietary Fiber": 0.5,
+        "DietaryFiber": 0.5,
         "Iron": 1.77,
         "Protein": 12.41,
-        "Vitamin A": 15,
-        "Vitamin B": 0,
-        "Vitamin C": 0.8,
+        "VitaminA": 15,
+        "VitaminB": 0,
+        "VitaminC": 0.8,
         "Carbohydrate": 7.58
       },
-      "updatedAt": "2024-12-04T02:11:05.525Z"
+      "image": "https://storage.googleapis.com/meals_images_nutricheck/gambar%20makanan/Meatball.jpg",
+      "createdAt": "2024-12-11T04:41:54.156Z",
+      "updatedAt": "2024-12-11T04:41:54.156Z",
+      "userId": "7b9d290f-17b3-499b-afbd-ae4009d18a83"
     }
   ]
 }
@@ -604,10 +597,7 @@ POST /meals_histories
 
 ```json
 {
-  "mealIds": [
-    "182457cf-c017-4bf6-9a92-d5bf4633c8fd",
-    "18f49a2b-9e04-45e9-9ef1-7c5824fb1de1"
-  ]
+  "mealIds": ["0033d7fb-f41a-4814-82bd-878acf69b3a4"]
 }
 ```
 
@@ -618,67 +608,47 @@ POST /meals_histories
   "status": 201,
   "message": "Create Meal History Success",
   "data": {
-    "id": "3ff3c08d-2f12-4c80-9f0a-2a0055d07911",
-    "total_calories": 435,
+    "id": "8f7f9632-0279-4e96-a1a0-d4da7eb1a821",
+    "total_calories": 308,
     "total_nutrition": {
-      "Calcium": 83,
-      "Dietary Fiber": 1.4,
-      "Iron": 7.62,
-      "Protein": 13.86,
-      "Vitamin A": 104,
-      "Vitamin B": 0,
-      "Vitamin C": 3.8,
-      "Carbohydrate": 50.72
+      "Calcium": 27,
+      "DietaryFiber": 1.7,
+      "Iron": 1.78,
+      "Protein": 4.67,
+      "VitaminA": 45,
+      "VitaminB": 0,
+      "VitaminC": 4.5,
+      "Carbohydrate": 32.21
     },
     "meals_details": [
       {
-        "id": "182457cf-c017-4bf6-9a92-d5bf4633c8fd",
-        "Calories": 367,
-        "Food Name": "red velvet cake",
+        "id": "0033d7fb-f41a-4814-82bd-878acf69b3a4",
+        "Food Name": "Samosa",
         "Serving Size (grams)": 100,
-        "createdAt": "2024-12-03T13:46:10.042Z",
-        "userId": "20ddEYDvRLEkEfPyC1Fa",
-        "image": "https://storage.googleapis.com/meals_images_nutricheck/gambar%20makanan/Tacos.jpg",
+        "Calories": 308,
         "nutritions": {
-          "Calcium": 38,
-          "Dietary Fiber": 1.4,
-          "Iron": 0.96,
-          "Protein": 6.81,
-          "Vitamin A": 74,
-          "Vitamin B": 0,
-          "Vitamin C": 0.1,
-          "Carbohydrate": 46.81
+          "Calcium": 27,
+          "DietaryFiber": 1.7,
+          "Iron": 1.78,
+          "Protein": 4.67,
+          "VitaminA": 45,
+          "VitaminB": 0,
+          "VitaminC": 4.5,
+          "Carbohydrate": 32.21
         },
-        "updatedAt": "2024-12-04T02:11:06.697Z"
-      },
-      {
-        "id": "18f49a2b-9e04-45e9-9ef1-7c5824fb1de1",
-        "Calories": 68,
-        "Food Name": "oysters",
-        "Serving Size (grams)": 100,
-        "createdAt": "2024-12-03T13:46:10.041Z",
-        "userId": "20ddEYDvRLEkEfPyC1Fa",
-        "image": "https://storage.googleapis.com/meals_images_nutricheck/gambar%20makanan/Tacos.jpg",
-        "nutritions": {
-          "Calcium": 45,
-          "Dietary Fiber": 0,
-          "Iron": 6.66,
-          "Protein": 7.05,
-          "Vitamin A": 30,
-          "Vitamin B": 0,
-          "Vitamin C": 3.7,
-          "Carbohydrate": 3.91
-        },
-        "updatedAt": "2024-12-04T02:11:06.985Z"
+        "image": "https://storage.googleapis.com/meals_images_nutricheck/gambar%20makanan/Samosa.jpg",
+        "createdAt": "2024-12-11T04:41:54.155Z",
+        "updatedAt": "2024-12-11T04:41:54.155Z",
+        "userId": "7b9d290f-17b3-499b-afbd-ae4009d18a83"
       }
     ],
-    "userId": "20ddEYDvRLEkEfPyC1Fa",
-    "meal_type": "snack",
-    "date": "2024-12-05",
-    "createdAt": "2024-12-05T14:49:02.282Z",
-    "updatedAt": "2024-12-05T14:49:02.282Z",
-    "count": 2,
-    "label": "Vitamin A"
+    "userId": "ae31b9c8-f4df-456f-801c-c8da78e28320",
+    "meal_type": "lunch",
+    "date": "2024-12-11",
+    "createdAt": "2024-12-11T04:55:57.165Z",
+    "updatedAt": "2024-12-11T04:55:57.165Z",
+    "count": 1,
+    "label": "VitaminA"
   }
 }
 ```
@@ -703,7 +673,7 @@ POST /meals_histories/manual
 ```json
 {
   "Calories": 175,
-  "Food Name": "testing manual kedua",
+  "Food Name": "indomie",
   "Serving Size (grams)": 100,
   "nutritions": {
     "Calcium": 14,
@@ -725,22 +695,42 @@ POST /meals_histories/manual
   "status": 201,
   "message": "Add Meal Success",
   "data": {
-    "id": "5a997544-7156-4bb8-8109-9ea8421afcbc",
-    "total_calories": 175,
+    "id": "8f7f9632-0279-4e96-a1a0-d4da7eb1a821",
+    "total_calories": 483,
     "total_nutrition": {
-      "Calcium": 14,
-      "Dietary Fiber": 1,
-      "Iron": 1.28,
-      "Protein": 6.96,
-      "Vitamin A": 11,
-      "Vitamin B": 1,
-      "Vitamin C": 0.7,
-      "Carbohydrate": 19.25
+      "Calcium": 41,
+      "DietaryFiber": 1.7,
+      "Iron": 3.06,
+      "Protein": 11.63,
+      "VitaminA": 45,
+      "VitaminB": 0,
+      "VitaminC": 4.5,
+      "Carbohydrate": 51.46
     },
     "meals_details": [
       {
+        "id": "0033d7fb-f41a-4814-82bd-878acf69b3a4",
+        "Food Name": "Samosa",
+        "Serving Size (grams)": 100,
+        "Calories": 308,
+        "nutritions": {
+          "Calcium": 27,
+          "DietaryFiber": 1.7,
+          "Iron": 1.78,
+          "Protein": 4.67,
+          "VitaminA": 45,
+          "VitaminB": 0,
+          "VitaminC": 4.5,
+          "Carbohydrate": 32.21
+        },
+        "image": "https://storage.googleapis.com/meals_images_nutricheck/gambar%20makanan/Samosa.jpg",
+        "createdAt": "2024-12-11T04:41:54.155Z",
+        "updatedAt": "2024-12-11T04:41:54.155Z",
+        "userId": "7b9d290f-17b3-499b-afbd-ae4009d18a83"
+      },
+      {
         "Calories": 175,
-        "Food Name": "testing manual kedua",
+        "Food Name": "indomie",
         "Serving Size (grams)": 100,
         "nutritions": {
           "Calcium": 14,
@@ -752,19 +742,20 @@ POST /meals_histories/manual
           "Vitamin C": 0.7,
           "Carbohydrate": 19.25
         },
-        "id": "6901df25-9b08-4387-a010-3bb5002c4274",
-        "userId": "20ddEYDvRLEkEfPyC1Fa",
-        "createdAt": "2024-12-07T11:30:39.429Z",
-        "updatedAt": "2024-12-07T11:30:39.429Z"
+        "image": "",
+        "id": "473013fb-b9c5-405f-9962-0773d6ee7791",
+        "userId": "ae31b9c8-f4df-456f-801c-c8da78e28320",
+        "createdAt": "2024-12-11T04:57:40.004Z",
+        "updatedAt": "2024-12-11T04:57:40.004Z"
       }
     ],
-    "userId": "20ddEYDvRLEkEfPyC1Fa",
-    "meal_type": "dinner",
-    "date": "2024-12-07",
-    "createdAt": "2024-12-07T11:30:39.430Z",
-    "updatedAt": "2024-12-07T11:30:39.430Z",
-    "count": 1,
-    "label": "Carbohydrate"
+    "count": 2,
+    "label": "Carbohydrate",
+    "userId": "ae31b9c8-f4df-456f-801c-c8da78e28320",
+    "meal_type": "lunch",
+    "date": "2024-12-11",
+    "createdAt": "2024-12-11T04:55:57.165Z",
+    "updatedAt": "2024-12-11T04:57:40.004Z"
   }
 }
 ```
@@ -776,7 +767,7 @@ Melakukan pencarian history berdasarkan meal_type
 **URL**
 
 ```bash
-GET /meals_histories/search?meal_type=snack
+GET /meals_histories/search?meal_type=lunch
 ```
 
 **Response Success**
@@ -787,65 +778,67 @@ GET /meals_histories/search?meal_type=snack
   "message": "Fetch Meals Histories Success",
   "data": [
     {
-      "id": "3ff3c08d-2f12-4c80-9f0a-2a0055d07911",
-      "total_calories": 435,
+      "id": "8f7f9632-0279-4e96-a1a0-d4da7eb1a821",
+      "userId": "ae31b9c8-f4df-456f-801c-c8da78e28320",
+      "meal_type": "lunch",
+      "date": "2024-12-11",
+      "createdAt": "2024-12-11T04:55:57.165Z",
       "total_nutrition": {
-        "Calcium": 83,
-        "Dietary Fiber": 1.4,
-        "Iron": 7.62,
-        "Protein": 13.86,
-        "Vitamin A": 104,
-        "Vitamin B": 0,
-        "Vitamin C": 3.8,
-        "Carbohydrate": 50.72
+        "Calcium": 41,
+        "DietaryFiber": 1.7,
+        "Iron": 3.06,
+        "Protein": 11.63,
+        "VitaminA": 45,
+        "VitaminB": 0,
+        "VitaminC": 4.5,
+        "Carbohydrate": 51.46
       },
+      "total_calories": 483,
+      "count": 2,
       "meals_details": [
         {
-          "id": "182457cf-c017-4bf6-9a92-d5bf4633c8fd",
-          "Calories": 367,
-          "Food Name": "red velvet cake",
+          "id": "0033d7fb-f41a-4814-82bd-878acf69b3a4",
+          "Food Name": "Samosa",
           "Serving Size (grams)": 100,
-          "createdAt": "2024-12-03T13:46:10.042Z",
-          "userId": "20ddEYDvRLEkEfPyC1Fa",
+          "Calories": 308,
           "nutritions": {
-            "Calcium": 38,
-            "Dietary Fiber": 1.4,
-            "Iron": 0.96,
-            "Protein": 6.81,
-            "Vitamin A": 74,
-            "Vitamin B": 0,
-            "Vitamin C": 0.1,
-            "Carbohydrate": 46.81
+            "Calcium": 27,
+            "DietaryFiber": 1.7,
+            "Iron": 1.78,
+            "Protein": 4.67,
+            "VitaminA": 45,
+            "VitaminB": 0,
+            "VitaminC": 4.5,
+            "Carbohydrate": 32.21
           },
-          "updatedAt": "2024-12-04T02:11:06.697Z"
+          "image": "https://storage.googleapis.com/meals_images_nutricheck/gambar%20makanan/Samosa.jpg",
+          "createdAt": "2024-12-11T04:41:54.155Z",
+          "updatedAt": "2024-12-11T04:41:54.155Z",
+          "userId": "7b9d290f-17b3-499b-afbd-ae4009d18a83"
         },
         {
-          "id": "18f49a2b-9e04-45e9-9ef1-7c5824fb1de1",
-          "Calories": 68,
-          "Food Name": "oysters",
+          "Calories": 175,
+          "Food Name": "indomie",
           "Serving Size (grams)": 100,
-          "createdAt": "2024-12-03T13:46:10.041Z",
-          "userId": "20ddEYDvRLEkEfPyC1Fa",
           "nutritions": {
-            "Calcium": 45,
-            "Dietary Fiber": 0,
-            "Iron": 6.66,
-            "Protein": 7.05,
-            "Vitamin A": 30,
-            "Vitamin B": 0,
-            "Vitamin C": 3.7,
-            "Carbohydrate": 3.91
+            "Calcium": 14,
+            "Dietary Fiber": 1,
+            "Iron": 1.28,
+            "Protein": 6.96,
+            "Vitamin A": 11,
+            "Vitamin B": 1,
+            "Vitamin C": 0.7,
+            "Carbohydrate": 19.25
           },
-          "updatedAt": "2024-12-04T02:11:06.985Z"
+          "image": "",
+          "id": "473013fb-b9c5-405f-9962-0773d6ee7791",
+          "userId": "ae31b9c8-f4df-456f-801c-c8da78e28320",
+          "createdAt": "2024-12-11T04:57:40.004Z",
+          "updatedAt": "2024-12-11T04:57:40.004Z"
         }
       ],
-      "userId": "20ddEYDvRLEkEfPyC1Fa",
-      "meal_type": "snack",
-      "date": "2024-12-05",
-      "createdAt": "2024-12-05T14:49:02.282Z",
-      "updatedAt": "2024-12-05T14:49:02.282Z",
-      "count": 2,
-      "label": "Vitamin A"
+      "label": "Carbohydrate",
+      "updatedAt": "2024-12-11T04:57:40.004Z"
     }
   ]
 }
@@ -858,7 +851,7 @@ Melakukan pencarian history berdasarkan tanggal
 **URL**
 
 ```bash
-GET /meals_histories/search?date=2024-12-05
+GET /meals_histories/search?date=2024-12-11
 ```
 
 **Response Success**
@@ -869,65 +862,67 @@ GET /meals_histories/search?date=2024-12-05
   "message": "Fetch Meals Histories Success",
   "data": [
     {
-      "id": "3ff3c08d-2f12-4c80-9f0a-2a0055d07911",
-      "total_calories": 435,
+      "id": "8f7f9632-0279-4e96-a1a0-d4da7eb1a821",
+      "userId": "ae31b9c8-f4df-456f-801c-c8da78e28320",
+      "meal_type": "lunch",
+      "date": "2024-12-11",
+      "createdAt": "2024-12-11T04:55:57.165Z",
       "total_nutrition": {
-        "Calcium": 83,
-        "Dietary Fiber": 1.4,
-        "Iron": 7.62,
-        "Protein": 13.86,
-        "Vitamin A": 104,
-        "Vitamin B": 0,
-        "Vitamin C": 3.8,
-        "Carbohydrate": 50.72
+        "Calcium": 41,
+        "DietaryFiber": 1.7,
+        "Iron": 3.06,
+        "Protein": 11.63,
+        "VitaminA": 45,
+        "VitaminB": 0,
+        "VitaminC": 4.5,
+        "Carbohydrate": 51.46
       },
+      "total_calories": 483,
+      "count": 2,
       "meals_details": [
         {
-          "id": "182457cf-c017-4bf6-9a92-d5bf4633c8fd",
-          "Calories": 367,
-          "Food Name": "red velvet cake",
+          "id": "0033d7fb-f41a-4814-82bd-878acf69b3a4",
+          "Food Name": "Samosa",
           "Serving Size (grams)": 100,
-          "createdAt": "2024-12-03T13:46:10.042Z",
-          "userId": "20ddEYDvRLEkEfPyC1Fa",
+          "Calories": 308,
           "nutritions": {
-            "Calcium": 38,
-            "Dietary Fiber": 1.4,
-            "Iron": 0.96,
-            "Protein": 6.81,
-            "Vitamin A": 74,
-            "Vitamin B": 0,
-            "Vitamin C": 0.1,
-            "Carbohydrate": 46.81
+            "Calcium": 27,
+            "DietaryFiber": 1.7,
+            "Iron": 1.78,
+            "Protein": 4.67,
+            "VitaminA": 45,
+            "VitaminB": 0,
+            "VitaminC": 4.5,
+            "Carbohydrate": 32.21
           },
-          "updatedAt": "2024-12-04T02:11:06.697Z"
+          "image": "https://storage.googleapis.com/meals_images_nutricheck/gambar%20makanan/Samosa.jpg",
+          "createdAt": "2024-12-11T04:41:54.155Z",
+          "updatedAt": "2024-12-11T04:41:54.155Z",
+          "userId": "7b9d290f-17b3-499b-afbd-ae4009d18a83"
         },
         {
-          "id": "18f49a2b-9e04-45e9-9ef1-7c5824fb1de1",
-          "Calories": 68,
-          "Food Name": "oysters",
+          "Calories": 175,
+          "Food Name": "indomie",
           "Serving Size (grams)": 100,
-          "createdAt": "2024-12-03T13:46:10.041Z",
-          "userId": "20ddEYDvRLEkEfPyC1Fa",
           "nutritions": {
-            "Calcium": 45,
-            "Dietary Fiber": 0,
-            "Iron": 6.66,
-            "Protein": 7.05,
-            "Vitamin A": 30,
-            "Vitamin B": 0,
-            "Vitamin C": 3.7,
-            "Carbohydrate": 3.91
+            "Calcium": 14,
+            "Dietary Fiber": 1,
+            "Iron": 1.28,
+            "Protein": 6.96,
+            "Vitamin A": 11,
+            "Vitamin B": 1,
+            "Vitamin C": 0.7,
+            "Carbohydrate": 19.25
           },
-          "updatedAt": "2024-12-04T02:11:06.985Z"
+          "image": "",
+          "id": "473013fb-b9c5-405f-9962-0773d6ee7791",
+          "userId": "ae31b9c8-f4df-456f-801c-c8da78e28320",
+          "createdAt": "2024-12-11T04:57:40.004Z",
+          "updatedAt": "2024-12-11T04:57:40.004Z"
         }
       ],
-      "userId": "20ddEYDvRLEkEfPyC1Fa",
-      "meal_type": "snack",
-      "date": "2024-12-05",
-      "createdAt": "2024-12-05T14:49:02.282Z",
-      "updatedAt": "2024-12-05T14:49:02.282Z",
-      "count": 2,
-      "label": "Vitamin A"
+      "label": "Carbohydrate",
+      "updatedAt": "2024-12-11T04:57:40.004Z"
     }
   ]
 }

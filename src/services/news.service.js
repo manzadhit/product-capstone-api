@@ -24,8 +24,11 @@ const createNews = async (data, imageFile) => {
 
     if (categorySnapshot.empty) {
       // Create category if not exists
-      const categoryRef = db.collection("categories").doc();
-      await categoryRef.set({ title });
+      const categoryId = uuidv4();
+      const categoryRef = db.collection("categories").doc(categoryId);
+      const createdAt = new Date().toISOString();
+      const updatedAt = createdAt;
+      await categoryRef.set({ title, createdAt, updatedAt });
       categoryRefs.push(categoryRef.id);
     } else {
       categoryRefs.push(categorySnapshot.docs[0].id);
