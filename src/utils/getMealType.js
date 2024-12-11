@@ -1,10 +1,12 @@
 const getMealType = (timeZone) => {
-  // const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
-  const currentHour = new Date().toLocaleString("en-US", {
-    timeZone: timeZone,
-    hour: "numeric",
-    hour12: false,
-  });
+  const currentHour = parseInt(
+    new Date().toLocaleString("en-US", {
+      timeZone: timeZone,
+      hour: "numeric",
+      hour12: false,
+    }),
+    10
+  );
 
   if (currentHour >= 7 && currentHour <= 10) {
     return "breakfast";
