@@ -25,7 +25,6 @@ const createMeal = async (meal, userId) => {
   return { id: docRef.id, ...data };
 };
 
-
 const getAllMeals = async () => {
   const snapshot = await db.collection("meals").get();
   const meals = [];
@@ -38,7 +37,7 @@ const getAllMeals = async () => {
 const getMealById = async (mealId) => {
   const docRef = db.collection("meals").doc(mealId);
   const doc = await docRef.get();
-  
+
   if (!doc.exists) {
     throw new ApiError(httpStatus.NOT_FOUND, "Meal Not Found");
   }
@@ -91,8 +90,18 @@ const deleteMeal = async (mealId, userId) => {
 };
 
 const getMealsByFoodName = async (namePattern) => {
-  // Ambil semua data berita dari Firestore
   const snapshot = await db.collection("meals").get();
+
+  // Ganti _ dengan spasi
+  namePattern = namePattern.replace(/_/g, " ");
+  
+  if (namePattern == "nasi kuning") {
+    namePattern = "Yellow Rice";
+  }
+  if (namePattern == "nasi uduk") {
+    namePattern = "Uduk Rice";
+  }
+
   const meals = [];
 
   snapshot.forEach((doc) => {
@@ -116,8 +125,6 @@ const getMealsByFoodName = async (namePattern) => {
 
   return meals;
 };
-
-
 
 module.exports = {
   createMeal,
