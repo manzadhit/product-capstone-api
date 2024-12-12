@@ -1,26 +1,27 @@
 # Nutri Check
 
-<!--
-Sebuah API sederhana untuk mengelola daftar tugas (todo) dengan fitur CRUD (Create, Read, Update, Delete).
+Sebuah API cerdas untuk mengelola data pengguna, riwayat makanan, informasi berita, dan kategori berita. Nutrisi berdasarkan hasil scan makanan dengan bantuan API model eksternal.
 
 ## Deskripsi
 
-Fancy Todo API adalah sebuah aplikasi API yang dibangun menggunakan Node.js, Express.js, dan Prisma sebagai ORM untuk database MySQL. API ini menyediakan endpoint untuk mengelola daftar tugas (todo) dan pengguna yang terdaftar. Setiap pengguna dapat membuat, membaca, memperbarui, dan menghapus daftar tugas mereka sendiri.
+NutriCheck API adalah sebuah aplikasi backend yang dibangun menggunakan Node.js dan Express.js, dengan Google Firestore sebagai database dan Cloud Storage untuk penyimpanan file gambar makanan dan gambar berita. Proses identifikasi makanan dilakukan dengan memanfaatkan API model machine learning terpisah, yang bertanggung jawab untuk menganalisis gambar dan mengembalikan nama makanan. NutriCheck API kemudian menggunakan nama makanan tersebut untuk memanggil layanan nutrisi dan mencatat data ke dalam riwayat pengguna.
+
+Aplikasi ini dideploy menggunakan Google Cloud Run untuk memastikan skalabilitas dan performa tinggi.
 
 ## Teknologi Yang Digunakan
 
-- Node.js
 - Express.js
-- Prisma
-- MySQL
+- Firestore
+- Cloud Storage
+- Cloud Run
 
 ## Database Schema
 
-![Database Schema](schema.png)
+![Database Schema](desaindbnutricheck.png)
 
 Gambar di atas menunjukkan skema database yang digunakan dalam proyek ini.
 
-## Instalasi
+<!-- ## Instalasi
 
 1.  Kloning repositori ini ke dalam direktori lokal Anda.
 
@@ -32,7 +33,7 @@ git clone https://github.com/manzadhit/Fancy-Todo-API-Prisma.git
 3.  Salin file `.env.example` dan ubah namanya menjadi `.env`.
 4.  Edit file `.env` dan isi dengan nilai yang sesuai untuk setiap variabel lingkungan yang diperlukan. Pastikan untuk mengisi nilai `DATABASE_URL` dengan URL koneksi database MySQL yang benar.
 5.  Jalankan perintah `npx prisma db push` untuk menerapkan skema database ke MySQL.
-6.  Jalankan perintah `npm run dev` untuk menjalankan server API.
+6.  Jalankan perintah `npm run dev` untuk menjalankan server API. -->
 
 ## Penggunaan -->
 
